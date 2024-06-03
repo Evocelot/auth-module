@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://api.auth.evocelot.hu/COMMON/1.0/common"
+            targetNamespace="http://api.auth.evocelot.hu/COMMON/1.0/common" elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <!-- SIMPLE TYPES -->
+
+    <!-- GROUPS -->
+
+    <!-- COMPLEX TYPES -->
+
+    <!-- REQUEST/RESPONSE COMPLEX TYPES -->
+
+    <!-- REQUEST/RESPONSE ELEMENTS -->
+
+</xsd:schema>
