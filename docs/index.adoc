@@ -5,7 +5,12 @@
 :source-highlighter: rouge
 :rouge-style: thankful_eyes
 :icons: font
+:imagesdir: images/
 
-= Module base
+= Auth module
 
-...
+The aim of the project is to develop an authentication
+solution that can be easily integrated into other
+Java-based applications.
+
+include::en/structure/structure.adoc[leveloffset=+1]

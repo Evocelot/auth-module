@@ -105,3 +105,7 @@ To create the Docker images of the microservices within the xy-services module, 
 ----
 mvn clean install -Pdocker
 ----
+
+== Documentation
+
+The detailed documentation is available here: link:docs/index.adoc[Documentation]
