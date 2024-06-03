@@ -1,3 +1,5 @@
+:imagesdir: ../../images/
+
 = Establishing Connections
 
 The auth-module utilizes several external services, such as Redis, file-service, and notification-service.
