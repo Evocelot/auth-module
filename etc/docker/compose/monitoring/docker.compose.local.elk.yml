@@ -1,0 +1,36 @@
+services:
+  evocelot-elasticsearch:
+    container_name: evocelot-elasticsearch
+    image: elasticsearch:8.12.2
+    ports:
+      - "9200:9200"
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: false
+      cluster.name: docker-cluster
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+  evocelot-logstash:
+    container_name: evocelot-logstash
+    image: logstash:8.12.2
+    volumes:
+      - ../config/logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "9300:9300"
+  evocelot-kibana:
+    image: kibana:8.12.2
+    container_name: evocelot-kibana
+    environment:
+      ELASTICSEARCH_HOSTS: http://evocelot-elasticsearch:9200
+    ports:
+      - "5601:5601"
+networks:
+  default:
+    name: evocelot-network

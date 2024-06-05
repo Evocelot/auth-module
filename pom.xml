@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>hu.innovitech.pom</groupId>
+        <artifactId>parent-innovitech-pom</artifactId>
+        <version>1.1.0</version>
+    </parent>
+
+    <groupId>hu.evocelot.auth</groupId>
+    <artifactId>auth</artifactId>
+
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <description>Java based backend service</description>
+    <url>https://github.com/Evocelot/module-base</url>
+    <inceptionYear>2024</inceptionYear>
+
+    <properties>
+        <failsafe.reportsDir>${project.build.directory}/failsafe-reports</failsafe.reportsDir>
+
+        <version.hu.icellmobilsoft.coffee.ee10>2.7.0</version.hu.icellmobilsoft.coffee.ee10>
+        <version.hu.icellmobilsoft.roaster.ee10>2.1.1</version.hu.icellmobilsoft.roaster.ee10>
+    </properties>
+
+    <modules>
+        <module>auth-bom</module>
+        <module>auth-api</module>
+        <module>auth-model</module>
+        <module>auth-common</module>
+        <module>auth-services</module>
+        <module>auth-client</module>
+        <module>auth-testsuite</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:https://github.com/Evocelot/module-base.git</connection>
+        <developerConnection>scm:git:git@github.com:Evocelot/module-base.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.4.1</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <git-commit>${buildNumber}</git-commit>
+                                <git-branch>${scmBranch}</git-branch>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.4.0</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <git-commit>${buildNumber}</git-commit>
+                                <git-branch>${scmBranch}</git-branch>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <configuration>
+                        <releaseProfiles>release</releaseProfiles>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <configuration>
+                        <images>
+                            <image>
+                                <name>evocelot/${service.name}</name>
+                                <build>
+                                    <from>icellmobilsoft/wildfly-mp-full-mariadb-jdbc:3.0.0</from>
+                                    <tags>
+                                        <tag>${project.version}</tag>
+                                    </tags>
+                                    <dockerFileDir>${project.basedir}</dockerFileDir>
+                                    <args>
+                                        <SERVICE_NAME>${service.name}</SERVICE_NAME>
+                                        <VERSION>${project.version}</VERSION>
+                                    </args>
+                                </build>
+                            </image>
+                        </images>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>check-javadoc</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <failOnError>true</failOnError>
+                            <failOnWarnings>true</failOnWarnings>
+                            <excludePackageNames>hu.evocelot.auth.api.*</excludePackageNames>
+                            <sourceFileExcludes>**/*_.java</sourceFileExcludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

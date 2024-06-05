@@ -1,0 +1,16 @@
+:toc: left
+:toclevels: 4
+:sectnums:
+:sectnumlevels: 4
+:source-highlighter: rouge
+:rouge-style: thankful_eyes
+:icons: font
+:imagesdir: images/
+
+= Auth module
+
+The aim of the project is to develop an authentication
+solution that can be easily integrated into other
+Java-based applications.
+
+include::en/structure/structure.adoc[leveloffset=+1]

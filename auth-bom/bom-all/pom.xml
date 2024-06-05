@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>hu.evocelot.auth</groupId>
+        <artifactId>auth-bom</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>bom-all</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <version.hu.icellmobilsoft.coffee>${version.hu.icellmobilsoft.coffee.ee10}</version.hu.icellmobilsoft.coffee>
+        <version.org.eclipse.microprofile>6.0</version.org.eclipse.microprofile>
+        <version.io.smallrye.config.source.yaml>3.3.4</version.io.smallrye.config.source.yaml>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- bom imports -->
+            <dependency>
+                <groupId>hu.evocelot.auth</groupId>
+                <artifactId>bom-jee</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>hu.evocelot.auth</groupId>
+                <artifactId>bom-wf-30</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>hu.evocelot.auth</groupId>
+                <artifactId>bom-auth</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>hu.evocelot.auth</groupId>
+                <artifactId>bom-test</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- icellmobilsoft dependencies -->
+            <dependency>
+                <groupId>hu.icellmobilsoft.coffee</groupId>
+                <artifactId>coffee-bom-project</artifactId>
+                <version>${version.hu.icellmobilsoft.coffee}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- microprofile -->
+            <dependency>
+                <groupId>org.eclipse.microprofile</groupId>
+                <artifactId>microprofile</artifactId>
+                <version>${version.org.eclipse.microprofile}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- smallrye -->
+            <dependency>
+                <groupId>io.smallrye.config</groupId>
+                <artifactId>smallrye-config-source-yaml</artifactId>
+                <version>${version.io.smallrye.config.source.yaml}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

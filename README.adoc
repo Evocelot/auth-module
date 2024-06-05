@@ -1,0 +1,111 @@
+= Module-base
+
+Basic project for backend microservices based on Jakarta and Wildfly.
+
+== Technologies Used
+
+* Jakarta EE 10
+* Wildfly 30
+* Maven 3.9.0+
+* Coffee 2.6.0
+
+== Directory Structure
+
+[source,txt]
+----
+/docs <1>
+/etc
+  /config <2>
+  /docker <3>
+/xy-api <4>
+/xy-bom <5>
+/xy-client <6>
+/xy-common <7>
+/xy-model <8>
+/xy-services <9>
+/xy-testsuite <10>
+----
+<1> - Source of project documentation.
+<2> - Configuration files of the project.
+<3> - Scripts used for running the application in a Dockerized environment.
+<4> - Module for collecting API descriptors.
+<5> - Module for collecting project dependencies.
+<6> - Module for collecting Rest Clients of the project for easy integration.
+<7> - Module for collecting common solutions found in the project.
+<8> - Module for collecting JPA entities of the project.
+<9> - The project's own microservices.
+<10> - Module containing integration tests of the project.
+
+== Building the Application
+
+To build the application, execute the following command from the root directory:
+
+.build
+[source,bash]
+----
+mvn clean install
+----
+
+This will initiate the build process of the application, verify the javadocs, and at the end, generate the necessary .jar files.
+
+=== Disabling Javadoc Verification
+
+To build the application without javadoc verification, execute the following command:
+
+.build-without-javadoc-check
+[source,bash]
+----
+mvn clean install -P-check-javadoc
+----
+
+To run the tests, execute the following command:
+
+.build-with-run-the-integration-tests
+[source,bash]
+----
+mvn clean install -Ptestsuite
+----
+
+== Startup
+
+=== Database Setup
+
+To set up the project's database schema, use the following repository: https://github.com/Evocelot/liquibase-base
+
+As a first step, based on the provided repository, start the appropriate DBMS and update the database schema using Liquibase.
+
+== Starting the Microservice
+
+To start the microservice, first, we need to start an empty WildFly container.
+To do this, execute the following command from the project's root directory:
+
+.start-local-wildfly
+[source,bash]
+----
+docker compose -f etc/docker/compose/wildfly/docker.compose.local.wildfly.yml up -d
+----
+
+After that, attach our built application using the following command:
+
+.copy-war
+[source,bash]
+----
+docker cp auth-services/sample-jpa-service/target/sample-jpa-service-<VERSION>-SNAPSHOT.war evocelot-auth-service:/home/icellmobilsoft/wildfly/standalone/deployments/ROOT.war
+----
+
+[NOTE]
+Don't forget to update the <VERSION> part. You can find the current version in the pom.xml file.
+
+== Creating Docker Image
+
+To create the Docker images of the microservices within the xy-services module, execute the following command:
+
+.create-local-docker-images
+[source,bash]
+----
+mvn clean install -Pdocker
+----
+
+== Documentation
+
+The detailed documentation is available here: link:docs/index.adoc[Documentation]
