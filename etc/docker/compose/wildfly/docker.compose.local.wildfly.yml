@@ -3,15 +3,15 @@ services:
     container_name: evocelot-auth-service
     image: icellmobilsoft/wildfly-mp-full-mariadb-jdbc:3.0.0
     ports:
-      - '8081:8080'
-      - '9991:9990'
-      - '8788:8787'
+      - '8082:8080'
+      - '9992:9990'
+      - '8789:8787'
     volumes:
       - '../config/wildfly/auth.properties:/home/icellmobilsoft/config/wildfly.properties'
     environment:
       COFFEE_APP_PROJECTSTAGE: Dev
       HIBERNATE_DIALECT: org.hibernate.dialect.MariaDBDialect
-      MARIADB_DS_CONNECTION_URL: jdbc:mariadb://evocelot-modulebase-mariadb:3306/modulebase
+      MARIADB_DS_CONNECTION_URL: jdbc:mariadb://evocelot-auth-service-mariadb:3306/auth
       MARIADB_DS_USERNAME: root
       MARIADB_DS_PASSWORD: admin
       OTEL_SERVICE_NAME: evocelot-auth

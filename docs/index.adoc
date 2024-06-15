@@ -5,12 +5,20 @@
 :source-highlighter: rouge
 :rouge-style: thankful_eyes
 :icons: font
-:imagesdir: images/
 
 = Auth module
 
-The aim of the project is to develop an authentication
+The aim of the project is to develop an authentication and authorization
 solution that can be easily integrated into other
 Java-based applications.
 
-include::en/structure/structure.adoc[leveloffset=+1]
+== Architecture
+
+The main usage model for how the auth-service should be used
+is illustrated in the following diagram:
+
+image::images/auth-service-arch.drawio.png[auth-service]
+
+== Endpoints
+
+...

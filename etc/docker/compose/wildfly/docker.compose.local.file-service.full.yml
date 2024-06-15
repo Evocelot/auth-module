@@ -1,0 +1,70 @@
+services:
+
+  # Mariadb instance for the file service.
+  evocelot-file-service-mariadb:
+    container_name: evocelot-file-service-mariadb
+    image: library/mariadb:11.3.2
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: admin
+      TZ: Europe/Budapest
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      # interval: 2s
+    volumes:
+      - ./file_service_schema_local_create.sql:/docker-entrypoint-initdb.d/file_service_schema_local_create.sql:ro
+
+  # Install liquibase on the mariadb instance to create the correct database schemas.
+  evocelot-file-service-liquibase:
+    container_name: evocelot-file-service-liquibase
+    image: evocelot/file-service-liquibase:0.2.0
+    environment:
+      LIQUIBASE_CONTEXTS: local
+      LIQUIBASE_URL: jdbc:mariadb://evocelot-file-service-mariadb:3306/file
+      LIQUIBASE_USERNAME: root
+      LIQUIBASE_PASSWORD: admin
+      LIQUIBASE_DRIVER: org.mariadb.jdbc.Driver
+    depends_on:
+      evocelot-file-service-mariadb:
+        condition: service_healthy
+
+  # The file service instance.
+  evocelot-file-service:
+    container_name: evocelot-file-service
+    image: evocelot/file-service:0.2.0
+    ports:
+      - '8081:8080'
+      - '9991:9990'
+      - '8788:8787'
+    volumes:
+      - '../config/wildfly/auth.properties:/home/icellmobilsoft/config/wildfly.properties'
+      - /c/file-service:/files # Stores the files into the /c/file-service folder
+    environment:
+      COFFEE_APP_PROJECTSTAGE: Dev
+      HIBERNATE_DIALECT: org.hibernate.dialect.MariaDBDialect
+      MARIADB_DS_CONNECTION_URL: jdbc:mariadb://evocelot-file-service-mariadb:3306/file
+      MARIADB_DS_USERNAME: root
+      MARIADB_DS_PASSWORD: admin
+      OTEL_SERVICE_NAME: evocelot-file
+      OTEL_SDK_DISABLED: true
+      OPENTELEMETRY_SAMPLER_TYPE: ratio
+      OPENTELEMETRY_SAMPLER_RATIO: 1
+      OPENTELEMETRY_EXPORTER_ENDPOINT: http://evocelot-jaeger:14250
+      OPENTELEMETRY_EXPORTER_TYPE: jaeger
+      LOGSTASH_ENABLED: false
+      LOGSTASH_HOST: evocelot-logstash
+      LOGSTASH_PORT: 9300
+      MICROMETER_ENDPOINT: http://evocelot-opentelemetry-collector:4318/v1/metrics
+      DEBUG: true
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+networks:
+  default:
+    name: evocelot-network
