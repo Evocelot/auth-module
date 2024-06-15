@@ -8,6 +8,12 @@ Basic project for backend microservices based on Jakarta and Wildfly.
 * Wildfly 30
 * Maven 3.9.0+
 * Coffee 2.6.0
+* Mariadb
+
+== Dockerhub
+
+You can find the current released Docker images here:
+link:https://hub.docker.com/repository/docker/evocelot/auth-service/general[dockerhub]
 
 == Directory Structure
 
@@ -70,9 +76,17 @@ mvn clean install -Ptestsuite
 
 === Database Setup
 
-To set up the project's database schema, use the following repository: https://github.com/Evocelot/liquibase-base
+To set up the project's database schema, use the following repository: https://github.com/Evocelot/auth-liquibase
 
-As a first step, based on the provided repository, start the appropriate DBMS and update the database schema using Liquibase.
+As a first step, based on the provided repository, start the appropriate DBMS.
+
+After that, run the following command from the project's root directory:
+
+.run-liquibase-scripts
+[source,bash]
+----
+docker compose -f etc/docker/compose/liquibase/docker.compose.local.auth-service.liquibase.yml up -d
+----
 
 == Starting the Microservice
 
@@ -90,7 +104,7 @@ After that, attach our built application using the following command:
 .copy-war
 [source,bash]
 ----
-docker cp auth-services/sample-jpa-service/target/sample-jpa-service-<VERSION>-SNAPSHOT.war evocelot-auth-service:/home/icellmobilsoft/wildfly/standalone/deployments/ROOT.war
+docker cp auth-services/auth-service/target/auth-service-<VERSION>-SNAPSHOT.war evocelot-auth-service:/home/icellmobilsoft/wildfly/standalone/deployments/ROOT.war
 ----
 
 [NOTE]
@@ -105,6 +119,12 @@ To create the Docker images of the microservices within the xy-services module, 
 ----
 mvn clean install -Pdocker
 ----
+
+== Openapi
+
+The list of endpoints supported by the application can be queried
+through the /openapi endpoint, and can even be tested
+through the Swagger UI.
 
 == Documentation
 
