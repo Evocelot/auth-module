@@ -1,0 +1,9 @@
+:imagesdir: ../../images/
+
+= Establishing Connections
+
+The auth-module utilizes several external services, such as Redis, file-service, and notification-service.
+
+The diagram below illustrates the connections between the modules:
+
+image::auth-service.drawio.png[auth-service]
