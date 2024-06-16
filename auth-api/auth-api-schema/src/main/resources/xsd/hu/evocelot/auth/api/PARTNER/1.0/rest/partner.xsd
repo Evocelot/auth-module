@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://api.auth.evocelot.hu/PARTNER/1.0/rest/partner"
+            xmlns:coffeeCommon="http://common.dto.coffee.icellmobilsoft.hu/common"
+            xmlns:coffeeCommonService="http://common.dto.coffee.icellmobilsoft.hu/commonservice"
+            targetNamespace="http://api.auth.evocelot.hu/PARTNER/1.0/rest/partner"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/common"/>
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/commonservice"/>
+
+    <!-- SIMPLE TYPES -->
+
+    <!-- GROUPS -->
+
+    <!-- COMPLEX TYPES -->
+    <xsd:complexType name="PartnerEntityCoreType">
+        <xsd:sequence>
+            <xsd:element name="firstName" type="coffeeCommon:SimpleText150NotBlankType">
+                <xsd:annotation>
+                    <xsd:documentation>The first name of the partner.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="lastName" type="coffeeCommon:SimpleText150NotBlankType">
+                <xsd:annotation>
+                    <xsd:documentation>The last name of the partner.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="phoneNumber" type="coffeeCommon:PhoneType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>The phone number of the partner.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="PartnerEntityType">
+        <xsd:complexContent>
+            <xsd:extension base="PartnerEntityCoreType">
+                <xsd:sequence>
+                    <xsd:element name="partnerId" type="coffeeCommon:EntityIdType">
+                        <xsd:annotation>
+                            <xsd:documentation>The unique identifier for the partner.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="securityUserId" type="coffeeCommon:EntityIdType">
+                        <xsd:annotation>
+                            <xsd:documentation>The security user id of the partner.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="profilePictureId" type="coffeeCommon:EntityIdType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>The profile picture id of the partner. For use this field, you need to use the
+                                file-service too.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- COMPLEX LIST TYPES -->
+
+    <!-- REQUEST/RESPONSE COMPLEX TYPES -->
+    <xsd:complexType name="UpdatePartnerRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="partner" type="PartnerEntityCoreType">
+                        <xsd:annotation>
+                            <xsd:documentation>The details of the partner.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="PartnerResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="partner" type="PartnerEntityType">
+                        <xsd:annotation>
+                            <xsd:documentation>The details of the partner.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE ELEMENTS -->
+    <xsd:element name="UpdatePartnerRequest">
+        <xsd:annotation>
+            <xsd:documentation>Request DTO for updating partner.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="UpdatePartnerRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="PartnerResponse">
+        <xsd:annotation>
+            <xsd:documentation>Response DTO for partner responses.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="PartnerResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

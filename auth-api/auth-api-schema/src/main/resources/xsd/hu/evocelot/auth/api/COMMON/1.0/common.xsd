@@ -1,16 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://api.auth.evocelot.hu/COMMON/1.0/common"
+            xmlns:coffeeCommonService="http://common.dto.coffee.icellmobilsoft.hu/commonservice"
             targetNamespace="http://api.auth.evocelot.hu/COMMON/1.0/common" elementFormDefault="qualified"
             attributeFormDefault="unqualified">
 
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/commonservice"/>
+
     <!-- SIMPLE TYPES -->
+    <xsd:simpleType name="EmailType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="320"/>
+            <xsd:pattern value="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PasswordType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
 
     <!-- GROUPS -->
 
     <!-- COMPLEX TYPES -->
 
     <!-- REQUEST/RESPONSE COMPLEX TYPES -->
+    <xsd:complexType name="EmailRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="emailAddress" type="EmailType">
+                        <xsd:annotation>
+                            <xsd:documentation>The email address.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
 
     <!-- REQUEST/RESPONSE ELEMENTS -->
-
+    <xsd:element name="EmailRequest">
+        <xsd:annotation>
+            <xsd:documentation>Request DTO for email address requests.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="EmailRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>
