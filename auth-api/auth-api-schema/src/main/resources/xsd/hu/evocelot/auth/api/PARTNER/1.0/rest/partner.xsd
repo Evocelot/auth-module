@@ -46,8 +46,8 @@
                     </xsd:element>
                     <xsd:element name="profilePictureId" type="coffeeCommon:EntityIdType" minOccurs="0">
                         <xsd:annotation>
-                            <xsd:documentation>The profile picture id of the partner. For use this field, you need to use the
-                                file-service too.
+                            <xsd:documentation>The profile picture id of the partner. For use this field, you need to
+                                use the file-service too.
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>

@@ -25,16 +25,6 @@ public class SecurityUserRestInformation {
     /**
      * {@value }
      */
-    public static final String GET_SECURITY_USER_SUMMARY = "Get security user";
-
-    /**
-     * {@value }
-     */
-    public static final String GET_SECURITY_USER_DESCRIPTION = "Endpoint for getting the security user.";
-
-    /**
-     * {@value }
-     */
     public static final String UPDATE_SECURITY_USER_SUMMARY = "Update security user";
 
     /**

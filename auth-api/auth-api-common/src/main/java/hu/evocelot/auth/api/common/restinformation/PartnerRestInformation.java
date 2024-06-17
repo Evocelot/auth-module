@@ -25,16 +25,6 @@ public class PartnerRestInformation {
     /**
      * {@value }
      */
-    public static final String GET_PARTNER_SUMMARY = "Get partner";
-
-    /**
-     * {@value }
-     */
-    public static final String GET_PARTNER_DESCRIPTION = "Endpoint for getting the partner.";
-
-    /**
-     * {@value }
-     */
     public static final String UPDATE_PARTNER_SUMMARY = "Update partner";
 
     /**
