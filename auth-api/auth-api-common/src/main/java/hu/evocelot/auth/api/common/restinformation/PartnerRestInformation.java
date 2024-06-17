@@ -10,12 +10,12 @@ public class PartnerRestInformation {
     /**
      * {@value }
      */
-    public static final String TAG = "Partner service";
+    public static final String TAG = "Partner management";
 
     /**
      * {@value }
      */
-    public static final String DESCRIPTION = "Partner service for handling the partner operations";
+    public static final String DESCRIPTION = "Partner management for handling the partner operations";
 
     /**
      * {@value }
