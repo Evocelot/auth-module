@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://api.auth.evocelot.hu/SECURITYUSER/1.0/rest/security_user"
+            xmlns:coffeeCommon="http://common.dto.coffee.icellmobilsoft.hu/common"
+            xmlns:coffeeCommonService="http://common.dto.coffee.icellmobilsoft.hu/commonservice"
+            xmlns:common="http://api.auth.evocelot.hu/COMMON/1.0/common"
+            targetNamespace="http://api.auth.evocelot.hu/SECURITYUSER/1.0/rest/security_user"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/common"/>
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/commonservice"/>
+    <xsd:import namespace="http://api.auth.evocelot.hu/COMMON/1.0/common"/>
+
+    <!-- SIMPLE TYPES -->
+    <xsd:simpleType name="SecurityUserStatusEnumType">
+        <xsd:restriction base="coffeeCommon:SimpleText20NotBlankType">
+            <xsd:annotation>
+                <xsd:documentation>The possible security user statuses.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:enumeration value="ACTIVE"/>
+            <xsd:enumeration value="INACTIVE"/>
+            <xsd:enumeration value="BANNED"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- GROUPS -->
+
+    <!-- COMPLEX TYPES -->
+    <xsd:complexType name="SecurityUserEntityCoreType">
+        <xsd:sequence>
+            <xsd:element name="securityGroupId" type="coffeeCommon:EntityIdType">
+                <xsd:annotation>
+                    <xsd:documentation>The unique identifier of the connected security group.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="status" type="SecurityUserStatusEnumType">
+                <xsd:annotation>
+                    <xsd:documentation>The status of the security user.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="SecurityUserEntityType">
+        <xsd:complexContent>
+            <xsd:extension base="SecurityUserEntityCoreType">
+                <xsd:sequence>
+                    <xsd:element name="securityUserId" type="coffeeCommon:EntityIdType">
+                        <xsd:annotation>
+                            <xsd:documentation>The unique identifier of the security user.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="emailAddress" type="common:EmailType">
+                        <xsd:annotation>
+                            <xsd:documentation>The email address of the security user.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- COMPLEX LIST TYPES -->
+
+    <!-- REQUEST/RESPONSE COMPLEX TYPES -->
+    <xsd:complexType name="UpdateSecurityUserRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="securityUser" type="SecurityUserEntityCoreType">
+                        <xsd:annotation>
+                            <xsd:documentation>The updated details of the security user.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="ResetSecurityUserPasswordRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="resetPasswordToken" type="coffeeCommon:SimpleText100NotBlankType">
+                        <xsd:annotation>
+                            <xsd:documentation>The reset password token to update password.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="newPasswordHash" type="common:PasswordType">
+                        <xsd:annotation>
+                            <xsd:documentation>The updated hash of the password.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="ChangeCurrentPasswordRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="actualPasswordHash" type="common:PasswordType">
+                        <xsd:annotation>
+                            <xsd:documentation>The actual password hash.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="newPasswordHash" type="common:PasswordType">
+                        <xsd:annotation>
+                            <xsd:documentation>The new password hash.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="SecurityUserResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="securityUser" type="SecurityUserEntityType">
+                        <xsd:annotation>
+                            <xsd:documentation>The details of the security user.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE ELEMENTS -->
+    <xsd:element name="UpdateSecurityUserRequest">
+        <xsd:annotation>
+            <xsd:documentation>Request DTO for updating security user details.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="UpdateSecurityUserRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ResetSecurityUserPasswordRequest">
+        <xsd:annotation>
+            <xsd:documentation>Request DTO for reset security user password.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="ResetSecurityUserPasswordRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ChangeCurrentPasswordRequest">
+        <xsd:annotation>
+            <xsd:documentation>Request DTO for updating the current password.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="ChangeCurrentPasswordRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="SecurityUserResponse">
+        <xsd:annotation>
+            <xsd:documentation>Response DTO for getting security user details.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="SecurityUserResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

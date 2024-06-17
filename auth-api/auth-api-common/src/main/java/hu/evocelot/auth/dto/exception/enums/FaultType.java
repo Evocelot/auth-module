@@ -66,4 +66,9 @@ public enum FaultType {
      * HTTP 418, when the sample entity is not found.
      */
     SAMPLE_NOT_FOUND,
+
+    /**
+     * HTTP 422, when the email address is already in use.
+     */
+    EMAIL_ALREADY_IN_USE,
 }

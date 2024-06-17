@@ -1,7 +1,7 @@
 services:
   evocelot-auth-service-liquibase:
     container_name: evocelot-auth-service-liquibase
-    image: evocelot/auth-service-liquibase:0.8.0
+    image: evocelot/auth-service-liquibase:0.10.0
     command: ["update"]
     environment:
       LIQUIBASE_CONTEXTS: local

@@ -4,6 +4,8 @@
           https://jakarta.ee/xml/ns/persistence/orm/orm_3_1.xsd"
                  version="3.1">
 
-    <entity class="hu.evocelot.auth.model.sample.SampleEntity"/>
+    <entity class="hu.evocelot.auth.model.SecurityUser"/>
+    <entity class="hu.evocelot.auth.model.Partner"/>
+    <entity class="hu.evocelot.auth.model.SecurityGroup"/>
 
 </entity-mappings>
