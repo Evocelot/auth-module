@@ -16,27 +16,32 @@ public class AuthPath extends BaseServicePath {
     /**
      * The {@value } path.
      */
-    public static final String SECURITY_USER_SERVICE = "/security-user";
+    public static final String BASE_PATH = "/auth-service";
 
     /**
      * The {@value } path.
      */
-    public static final String PARTNER_SERVICE = "/partner";
+    public static final String SECURITY_USER_SERVICE = BASE_PATH + "/security-user";
 
     /**
      * The {@value } path.
      */
-    public static final String USER_SERVICE = "/user";
+    public static final String PARTNER_SERVICE = BASE_PATH + "/partner";
 
     /**
      * The {@value } path.
      */
-    public static final String SECURITY_GROUP_SERVICE = "/security-group";
+    public static final String USER_SERVICE = BASE_PATH + "/user";
 
     /**
      * The {@value } path.
      */
-    public static final String PERMISSION_SERVICE = "/permission";
+    public static final String SECURITY_GROUP_SERVICE = BASE_PATH + "/security-group";
+
+    /**
+     * The {@value } path.
+     */
+    public static final String PERMISSION_SERVICE = BASE_PATH + "/permission";
 
     /**
      * The {@value } path.

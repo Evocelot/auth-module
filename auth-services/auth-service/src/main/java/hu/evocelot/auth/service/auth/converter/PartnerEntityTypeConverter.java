@@ -39,7 +39,6 @@ public class PartnerEntityTypeConverter implements IEntityConverter<Partner, Par
         partnerEntityCoreTypeConverter.convert(destinationDto, sourceEntity);
 
         destinationDto.setPartnerId(sourceEntity.getId());
-        destinationDto.setSecurityUserId(sourceEntity.getSecurityUser().getId());
         destinationDto.setProfilePictureId(sourceEntity.getProfilePictureId());
     }
 

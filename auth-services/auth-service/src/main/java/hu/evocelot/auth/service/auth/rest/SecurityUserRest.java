@@ -9,7 +9,6 @@ import hu.evocelot.auth.api.securityuser._1_0.rest.security_user.SecurityUserRes
 import hu.evocelot.auth.api.securityuser._1_0.rest.security_user.UpdateSecurityUserRequest;
 import hu.evocelot.auth.common.system.rest.rest.BaseRestService;
 import hu.evocelot.auth.service.auth.action.securityuser.ChangeCurrentPasswordAction;
-import hu.evocelot.auth.service.auth.action.securityuser.GetSecurityUserAction;
 import hu.evocelot.auth.service.auth.action.securityuser.UpdateCurrentSecurityUserAction;
 import hu.evocelot.auth.service.auth.action.securityuser.UpdateSecurityUserAction;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
@@ -24,9 +23,6 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 public class SecurityUserRest extends BaseRestService implements ISecurityUserRest {
 
     @Inject
-    private GetSecurityUserAction getSecurityUserAction;
-
-    @Inject
     private UpdateSecurityUserAction updateSecurityUserAction;
 
     @Inject
@@ -34,11 +30,6 @@ public class SecurityUserRest extends BaseRestService implements ISecurityUserRe
 
     @Inject
     private ChangeCurrentPasswordAction changeCurrentPasswordAction;
-
-    @Override
-    public SecurityUserResponse getSecurityUser(String securityUserId) throws BaseException {
-        return wrapPathParam1(getSecurityUserAction::getSecurityUser, securityUserId, "getSecurityUser", "securityUserId");
-    }
 
     @Override
     public SecurityUserResponse updateSecurityUser(String securityUserId, UpdateSecurityUserRequest updateSecurityUserRequest) throws BaseException {

@@ -10,7 +10,6 @@ import hu.evocelot.auth.api.rest.jee10.IPartnerRest;
 import hu.evocelot.auth.api.rest.jee10.dto.UploadProfilePictureRequest;
 import hu.evocelot.auth.common.system.rest.rest.BaseRestService;
 import hu.evocelot.auth.service.auth.action.partner.DownloadProfilePictureAction;
-import hu.evocelot.auth.service.auth.action.partner.GetPartnerAction;
 import hu.evocelot.auth.service.auth.action.partner.UpdateCurrentPartnerAction;
 import hu.evocelot.auth.service.auth.action.partner.UpdatePartnerAction;
 import hu.evocelot.auth.service.auth.action.partner.UploadProfilePictureAction;
@@ -26,9 +25,6 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 public class PartnerRest extends BaseRestService implements IPartnerRest {
 
     @Inject
-    private GetPartnerAction getPartnerAction;
-
-    @Inject
     private UpdatePartnerAction updatePartnerAction;
 
     @Inject
@@ -39,11 +35,6 @@ public class PartnerRest extends BaseRestService implements IPartnerRest {
 
     @Inject
     private DownloadProfilePictureAction downloadProfilePictureAction;
-
-    @Override
-    public PartnerResponse getPartner(String partnerId) throws BaseException {
-        return wrapPathParam1(getPartnerAction::getPartner, partnerId, "getPartner", "partnerId");
-    }
 
     @Override
     public PartnerResponse updatePartner(String partnerId, UpdatePartnerRequest updatePartnerRequest) throws BaseException {

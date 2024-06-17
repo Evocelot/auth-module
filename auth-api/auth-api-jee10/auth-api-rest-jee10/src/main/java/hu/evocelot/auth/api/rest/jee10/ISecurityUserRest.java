@@ -1,7 +1,6 @@
 package hu.evocelot.auth.api.rest.jee10;
 
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -31,24 +30,6 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 @Tag(name = SecurityUserRestInformation.TAG, description = SecurityUserRestInformation.DESCRIPTION)
 @Path(AuthPath.SECURITY_USER_SERVICE)
 public interface ISecurityUserRest {
-
-    /**
-     * HTTP GET for getting the security user details.
-     *
-     * @param securityUserId
-     *         - the id of the security user.
-     * @return - with {@link SecurityUserResponse} that contains information about the security user.
-     * @throws BaseException
-     *         - when an error occurs.
-     */
-    @GET
-    @Operation(summary = SecurityUserRestInformation.GET_SECURITY_USER_SUMMARY,
-            description = SecurityUserRestInformation.GET_SECURITY_USER_DESCRIPTION)
-    @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
-    @Path(AuthPath.ID)
-    SecurityUserResponse getSecurityUser(
-            @Parameter(description = SecurityUserRestInformation.SECURITY_USER_ID_PARAM_SUMMARY, required = true) @PathParam(
-                    BaseServicePath.PARAM_ID) String securityUserId) throws BaseException;
 
     /**
      * HTTP PUT method for updating security users.

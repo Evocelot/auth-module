@@ -118,7 +118,7 @@
 
     <xsd:complexType name="SecurityUserResponseType">
         <xsd:complexContent>
-            <xsd:extension base="coffeeCommonService:BaseRequestType">
+            <xsd:extension base="coffeeCommonService:BaseResponseType">
                 <xsd:sequence>
                     <xsd:element name="securityUser" type="SecurityUserEntityType">
                         <xsd:annotation>

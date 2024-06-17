@@ -36,22 +36,6 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 public interface IPartnerRest {
 
     /**
-     * HTTP GET for getting the partner details.
-     *
-     * @param partnerId
-     *         - the id of the partner.
-     * @return - with {@link PartnerResponse} that contains information about the partner.
-     * @throws BaseException
-     *         - when an error occurs.
-     */
-    @GET
-    @Operation(summary = PartnerRestInformation.GET_PARTNER_SUMMARY, description = PartnerRestInformation.GET_PARTNER_DESCRIPTION)
-    @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
-    @Path(AuthPath.ID)
-    PartnerResponse getPartner(@Parameter(description = PartnerRestInformation.PARTNER_ID_PARAM_SUMMARY, required = true) @PathParam(
-            BaseServicePath.PARAM_ID) String partnerId) throws BaseException;
-
-    /**
      * HTTP PUT method for updating partners.
      *
      * @param partnerId
@@ -125,5 +109,4 @@ public interface IPartnerRest {
     @Path(BaseServicePath.ID + AuthPath.PROFILE_PICTURE)
     Response downloadProfilePicture(@Parameter(description = PartnerRestInformation.PARTNER_ID_PARAM_SUMMARY, required = true) @PathParam(
             BaseServicePath.PARAM_ID) String partnerId) throws BaseException;
-
 }
