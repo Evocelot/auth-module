@@ -13,8 +13,8 @@ import hu.evocelot.auth.api.securityuser._1_0.rest.security_user.UpdateSecurityU
 import hu.evocelot.auth.common.system.rest.action.BaseAction;
 import hu.evocelot.auth.model.SecurityGroup;
 import hu.evocelot.auth.model.SecurityUser;
-import hu.evocelot.auth.service.auth.converter.SecurityUserEntityCoreTypeConverter;
-import hu.evocelot.auth.service.auth.converter.SecurityUserEntityTypeConverter;
+import hu.evocelot.auth.service.auth.converter.securityuser.SecurityUserEntityCoreTypeConverter;
+import hu.evocelot.auth.service.auth.converter.securityuser.SecurityUserEntityTypeConverter;
 import hu.evocelot.auth.service.auth.service.SecurityGroupService;
 import hu.evocelot.auth.service.auth.service.SecurityUserService;
 import hu.icellmobilsoft.coffee.dto.exception.InvalidParameterException;

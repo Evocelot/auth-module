@@ -71,4 +71,9 @@ public enum FaultType {
      * HTTP 422, when the email address is already in use.
      */
     EMAIL_ALREADY_IN_USE,
+
+    /**
+     * HTTP 500, when the permission name is already in use.
+     */
+    PERMISSION_NAME_ALREADY_IN_USE,
 }

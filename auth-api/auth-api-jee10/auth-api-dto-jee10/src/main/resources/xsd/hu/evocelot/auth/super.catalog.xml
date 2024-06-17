@@ -15,6 +15,8 @@
             uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SECURITYUSER/1.0/rest/security_user.xsd" />
     <public publicId="http://api.auth.evocelot.hu/USER/1.0/rest/user"
             uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/USER/1.0/rest/user.xsd" />
+    <public publicId="http://api.auth.evocelot.hu/PERMISSION/1.0/rest/permission"
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/PERMISSION/1.0/rest/permission.xsd" />
 
     <public publicId="http://api.auth.evocelot.hu/SAMPLE/1.0/rest/post"
             uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SAMPLE/1.0/rest/post.xsd" />

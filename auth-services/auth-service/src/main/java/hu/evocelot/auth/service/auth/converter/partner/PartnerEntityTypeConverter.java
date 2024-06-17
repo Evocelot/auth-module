@@ -1,10 +1,11 @@
-package hu.evocelot.auth.service.auth.converter;
+package hu.evocelot.auth.service.auth.converter.partner;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import hu.evocelot.auth.api.partner._1_0.rest.partner.PartnerEntityType;
 import hu.evocelot.auth.model.Partner;
+import hu.evocelot.auth.service.auth.converter.partner.PartnerEntityCoreTypeConverter;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 import hu.icellmobilsoft.coffee.system.jpa.converter.IEntityConverter;
 

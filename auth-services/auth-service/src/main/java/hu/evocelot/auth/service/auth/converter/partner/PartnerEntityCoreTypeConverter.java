@@ -1,4 +1,4 @@
-package hu.evocelot.auth.service.auth.converter;
+package hu.evocelot.auth.service.auth.converter.partner;
 
 import jakarta.enterprise.context.ApplicationScoped;
 

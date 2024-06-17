@@ -7,5 +7,6 @@
     <entity class="hu.evocelot.auth.model.SecurityUser"/>
     <entity class="hu.evocelot.auth.model.Partner"/>
     <entity class="hu.evocelot.auth.model.SecurityGroup"/>
+    <entity class="hu.evocelot.auth.model.Permission"/>
 
 </entity-mappings>
