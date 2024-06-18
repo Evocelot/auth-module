@@ -31,6 +31,15 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 @Path(AuthPath.PERMISSION_SERVICE)
 public interface IPermissionRest {
 
+    /**
+     * HTTP GET method for getting the permission.
+     *
+     * @param permissionId
+     *         - the id of the permission.
+     * @return - with {@link PermissionResponse} that contains the permission details.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
     @GET
     @Operation(summary = PermissionRestInformation.GET_PERMISSION_SUMMARY, description = PermissionRestInformation.GET_PERMISSION_DESCRIPTION)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
@@ -39,6 +48,17 @@ public interface IPermissionRest {
             @PathParam(BaseServicePath.PARAM_ID) @Parameter(description = PermissionRestInformation.PERMISSION_ID_PARAM_SUMMARY,
                     required = true) String permissionId) throws BaseException;
 
+    /**
+     * HTTP PUT method for modifying the permission.
+     *
+     * @param permissionId
+     *         - the if of the permission to modify.
+     * @param permissionRequest
+     *         - the request that contains the updated details of the permission.
+     * @return - with {@link PermissionResponse} that contains the updated details of the permission.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
     @PUT
     @Operation(summary = PermissionRestInformation.UPDATE_PERMISSION_SUMMARY, description = PermissionRestInformation.UPDATE_PERMISSION_DESCRIPTION)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })

@@ -10,12 +10,12 @@ public class SecurityUserRestInformation {
     /**
      * {@value }
      */
-    public static final String TAG = "Security user service";
+    public static final String TAG = "Security user management";
 
     /**
      * {@value }
      */
-    public static final String DESCRIPTION = "Security user service for handling the security user operations";
+    public static final String DESCRIPTION = "Security user management for handling the security user operations";
 
     /**
      * {@value }

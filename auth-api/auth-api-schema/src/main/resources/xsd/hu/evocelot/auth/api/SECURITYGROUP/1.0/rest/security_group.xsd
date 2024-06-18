@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://api.auth.evocelot.hu/SECURITYGROUP/1.0/rest/security_group"
+            xmlns:coffeeCommon="http://common.dto.coffee.icellmobilsoft.hu/common"
+            xmlns:coffeeCommonService="http://common.dto.coffee.icellmobilsoft.hu/commonservice"
+            targetNamespace="http://api.auth.evocelot.hu/SECURITYGROUP/1.0/rest/security_group"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/common"/>
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/commonservice"/>
+
+    <!-- SIMPLE TYPES -->
+
+    <!-- COMPLEX TYPES -->
+    <xsd:complexType name="SecurityGroupEntityCoreType">
+        <xsd:sequence>
+            <xsd:element name="name" type="coffeeCommon:SimpleText100NotBlankType">
+                <xsd:annotation>
+                    <xsd:documentation>The name of the security group.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="description" type="coffeeCommon:SimpleText200NotBlankType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>The description of the security group.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="SecurityGroupEntityType">
+        <xsd:complexContent>
+            <xsd:extension base="SecurityGroupEntityCoreType">
+                <xsd:sequence>
+                    <xsd:element name="securityGroupId" type="coffeeCommon:EntityIdType">
+                        <xsd:annotation>
+                            <xsd:documentation>The unique identifier of the security group.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE COMPLEX TYPES -->
+    <xsd:complexType name="SecurityGroupRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="securityGroup" type="SecurityGroupEntityCoreType">
+                        <xsd:annotation>
+                            <xsd:documentation>Request type for creating or updating SecurityGroups</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="SecurityGroupResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="securityGroup" type="SecurityGroupEntityType">
+                        <xsd:annotation>
+                            <xsd:documentation>Response type for SecurityGroup response.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE ELEMENTS -->
+    <xsd:element name="SecurityGroupRequest">
+        <xsd:annotation>
+            <xsd:documentation>The request element for creating or updating SecurityGroups.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="SecurityGroupRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="SecurityGroupResponse">
+        <xsd:annotation>
+            <xsd:documentation>The response element for SecurityGroup responses.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="SecurityGroupResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

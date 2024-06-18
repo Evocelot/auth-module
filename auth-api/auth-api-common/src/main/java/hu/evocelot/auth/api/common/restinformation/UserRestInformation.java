@@ -10,12 +10,12 @@ public class UserRestInformation {
     /**
      * {@value }
      */
-    public static final String TAG = "User service";
+    public static final String TAG = "User management";
 
     /**
      * {@value }
      */
-    public static final String DESCRIPTION = "User service for handling the user operations";
+    public static final String DESCRIPTION = "User management for handling the user operations";
 
     /**
      * {@value }

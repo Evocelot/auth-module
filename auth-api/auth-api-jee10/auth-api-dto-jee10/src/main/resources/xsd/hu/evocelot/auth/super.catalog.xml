@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <public publicId="http://common.dto.coffee.icellmobilsoft.hu/common"
-        uri="maven:hu.icellmobilsoft.coffee:coffee-dto-xsd:jar::!/xsd/hu/icellmobilsoft/coffee/dto/common/common.xsd" />
+            uri="maven:hu.icellmobilsoft.coffee:coffee-dto-xsd:jar::!/xsd/hu/icellmobilsoft/coffee/dto/common/common.xsd"/>
     <public publicId="http://common.dto.coffee.icellmobilsoft.hu/commonservice"
-        uri="maven:hu.icellmobilsoft.coffee:coffee-dto-xsd:jar::!/xsd/hu/icellmobilsoft/coffee/dto/common/commonservice.xsd" />
+            uri="maven:hu.icellmobilsoft.coffee:coffee-dto-xsd:jar::!/xsd/hu/icellmobilsoft/coffee/dto/common/commonservice.xsd"/>
     <public publicId="http://common.dto.coffee.icellmobilsoft.hu/commonsecurity"
-        uri="maven:hu.icellmobilsoft.coffee:coffee-dto-xsd:jar::!/xsd/hu/icellmobilsoft/coffee/dto/common/commonsecurity.xsd" />
+            uri="maven:hu.icellmobilsoft.coffee:coffee-dto-xsd:jar::!/xsd/hu/icellmobilsoft/coffee/dto/common/commonsecurity.xsd"/>
 
     <public publicId="http://api.auth.evocelot.hu/COMMON/1.0/common"
-        uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/COMMON/1.0/common.xsd" />
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/COMMON/1.0/common.xsd"/>
     <public publicId="http://api.auth.evocelot.hu/PARTNER/1.0/rest/partner"
-            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/PARTNER/1.0/rest/partner.xsd" />
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/PARTNER/1.0/rest/partner.xsd"/>
     <public publicId="http://api.auth.evocelot.hu/SECURITYUSER/1.0/rest/security_user"
-            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SECURITYUSER/1.0/rest/security_user.xsd" />
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SECURITYUSER/1.0/rest/security_user.xsd"/>
     <public publicId="http://api.auth.evocelot.hu/USER/1.0/rest/user"
-            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/USER/1.0/rest/user.xsd" />
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/USER/1.0/rest/user.xsd"/>
     <public publicId="http://api.auth.evocelot.hu/PERMISSION/1.0/rest/permission"
-            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/PERMISSION/1.0/rest/permission.xsd" />
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/PERMISSION/1.0/rest/permission.xsd"/>
+    <public publicId="http://api.auth.evocelot.hu/SECURITYGROUP/1.0/rest/security_group"
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SECURITYGROUP/1.0/rest/security_group.xsd"/>
 
     <public publicId="http://api.auth.evocelot.hu/SAMPLE/1.0/rest/post"
-            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SAMPLE/1.0/rest/post.xsd" />
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SAMPLE/1.0/rest/post.xsd"/>
 </catalog>

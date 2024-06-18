@@ -10,12 +10,12 @@ public class PermissionRestInformation {
     /**
      * {@value }
      */
-    public static final String TAG = "Permission service";
+    public static final String TAG = "Permission management";
 
     /**
      * {@value }
      */
-    public static final String DESCRIPTION = "Permission service for handling the permission operations";
+    public static final String DESCRIPTION = "Permission management for handling the permission operations";
 
     /**
      * {@value }
