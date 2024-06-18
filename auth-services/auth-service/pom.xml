@@ -20,6 +20,10 @@
             <artifactId>auth-common-system-jpa</artifactId>
         </dependency>
         <dependency>
+            <groupId>hu.evocelot.file</groupId>
+            <artifactId>file-api-rest-jee10</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-api</artifactId>
         </dependency>

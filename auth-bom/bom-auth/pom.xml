@@ -12,6 +12,7 @@
 
     <properties>
         <version.org.jboss.resteasy.multipart-provider>6.2.9.Final</version.org.jboss.resteasy.multipart-provider>
+        <version.hu.evocelot.file.file-api-rest-jee10>0.2.0-SNAPSHOT</version.hu.evocelot.file.file-api-rest-jee10>
     </properties>
 
     <dependencyManagement>
@@ -75,6 +76,11 @@
                 <groupId>hu.evocelot.auth.client</groupId>
                 <artifactId>auth-client-jee10</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.evocelot.file</groupId>
+                <artifactId>file-api-rest-jee10</artifactId>
+                <version>${version.hu.evocelot.file.file-api-rest-jee10}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
