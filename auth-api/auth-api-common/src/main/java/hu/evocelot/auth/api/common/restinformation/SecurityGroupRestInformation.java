@@ -82,4 +82,14 @@ public class SecurityGroupRestInformation {
      * {@value}.
      */
     public static final String DELETE_PERMISSION_FROM_SECURITY_GROUP_DESCRIPTION = "Endpoint for deleting permission from the security group.";
+
+    /**
+     * {@value}.
+     */
+    public static final String QUERY_SECURITY_GROUP_SUMMARY = "Listing security groups";
+
+    /**
+     * {@value}.
+     */
+    public static final String QUERY_SECURITY_GROUP_DESCRIPTION = "Endpoint for listing security groups with filtering, sorting and paging option.";
 }

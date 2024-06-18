@@ -7,12 +7,15 @@ import hu.evocelot.auth.api.common._1_0.common.EntityIdRequest;
 import hu.evocelot.auth.api.rest.jee10.ISecurityGroupRest;
 import hu.evocelot.auth.api.securitygroup._1_0.rest.security_group.SecurityGroupRequest;
 import hu.evocelot.auth.api.securitygroup._1_0.rest.security_group.SecurityGroupResponse;
+import hu.evocelot.auth.api.securitygroupquery._1_0.rest.security_group_query.SecurityGroupQueryRequest;
+import hu.evocelot.auth.api.securitygroupquery._1_0.rest.security_group_query.SecurityGroupQueryResponse;
 import hu.evocelot.auth.common.system.rest.rest.BaseRestService;
 import hu.evocelot.auth.service.auth.action.securitygroup.AddPermissionToSecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.CreateSecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.DeletePermissionFromSecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.DeleteSecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.GetSecurityGroupAction;
+import hu.evocelot.auth.service.auth.action.securitygroup.QuerySecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.UpdateSecurityGroupAction;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
@@ -44,6 +47,9 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
     @Inject
     private DeletePermissionFromSecurityGroupAction deletePermissionFromSecurityGroupAction;
 
+    @Inject
+    private QuerySecurityGroupAction querySecurityGroupAction;
+
     @Override
     public SecurityGroupResponse createSecurityGroup(SecurityGroupRequest securityGroupRequest) throws BaseException {
         return wrapPathParam1(createSecurityGroupAction::createSecurityGroup, securityGroupRequest, "createSecurityGroup", "securityGroupRequest");
@@ -51,8 +57,7 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
 
     @Override
     public SecurityGroupResponse updateSecurityGroup(String securityGroupId, SecurityGroupRequest securityGroupRequest) throws BaseException {
-        return wrapPathParam2(
-                updateSecurityGroupAction::updateSecurityGroup,
+        return wrapPathParam2(updateSecurityGroupAction::updateSecurityGroup,
                 securityGroupId,
                 securityGroupRequest,
                 "updateSecurityGroup",
@@ -72,8 +77,7 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
 
     @Override
     public BaseResponse addPermissionToSecurityGroup(String securityGroupId, EntityIdRequest entityIdRequest) throws BaseException {
-        return wrapPathParam2(
-                addPermissionToSecurityGroupAction::addPermissionToSecurityGroup,
+        return wrapPathParam2(addPermissionToSecurityGroupAction::addPermissionToSecurityGroup,
                 securityGroupId,
                 entityIdRequest,
                 "addPermissionToSecurityGroup",
@@ -83,12 +87,20 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
 
     @Override
     public BaseResponse removePermissionFromSecurityGroup(String securityGroupId, EntityIdRequest entityIdRequest) throws BaseException {
-        return wrapPathParam2(
-                deletePermissionFromSecurityGroupAction::removePermissionFromSecurityGroup,
+        return wrapPathParam2(deletePermissionFromSecurityGroupAction::removePermissionFromSecurityGroup,
                 securityGroupId,
                 entityIdRequest,
                 "removePermissionFromSecurityGroup",
                 "securityGroupId",
                 "entityIdRequest");
+    }
+
+    @Override
+    public SecurityGroupQueryResponse querySecurityGroup(SecurityGroupQueryRequest securityGroupQueryRequest) throws BaseException {
+        return wrapPathParam1(
+                querySecurityGroupAction::querySecurityGroup,
+                securityGroupQueryRequest,
+                "querySecurityGroup",
+                "securityGroupQueryRequest");
     }
 }

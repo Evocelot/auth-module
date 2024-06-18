@@ -19,6 +19,8 @@ import hu.evocelot.auth.api.common.path.AuthPath;
 import hu.evocelot.auth.api.common.restinformation.SecurityGroupRestInformation;
 import hu.evocelot.auth.api.securitygroup._1_0.rest.security_group.SecurityGroupRequest;
 import hu.evocelot.auth.api.securitygroup._1_0.rest.security_group.SecurityGroupResponse;
+import hu.evocelot.auth.api.securitygroupquery._1_0.rest.security_group_query.SecurityGroupQueryRequest;
+import hu.evocelot.auth.api.securitygroupquery._1_0.rest.security_group_query.SecurityGroupQueryResponse;
 import hu.evocelot.auth.dto.constant.XsdConstants;
 import hu.icellmobilsoft.coffee.cdi.annotation.xml.ValidateXML;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
@@ -153,4 +155,22 @@ public interface ISecurityGroupRest {
             @PathParam(BaseServicePath.PARAM_ID) @Parameter(description = SecurityGroupRestInformation.SECURITY_GROUP_ID_PARAM_SUMMARY,
                     required = true) String securityGroupId, @ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) EntityIdRequest entityIdRequest)
             throws BaseException;
+
+    /**
+     * HTTP POST method for listing security groups.
+     *
+     * @param securityGroupQueryRequest
+     *         - the request that contains information about the filtering, sorting and paging details.
+     * @return - with {@link SecurityGroupResponse} that contains the relevant security groups.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
+    @POST
+    @Operation(summary = SecurityGroupRestInformation.QUERY_SECURITY_GROUP_SUMMARY,
+            description = SecurityGroupRestInformation.QUERY_SECURITY_GROUP_DESCRIPTION)
+    @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
+    @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
+    @Path(BaseServicePath.QUERY)
+    SecurityGroupQueryResponse querySecurityGroup(
+            @ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) SecurityGroupQueryRequest securityGroupQueryRequest) throws BaseException;
 }

@@ -57,6 +57,34 @@
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="BaseQueryRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="pagingDetails" type="coffeeCommon:QueryRequestDetails" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>The pagig details.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="BaseQueryResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="pagingDetails" type="coffeeCommon:QueryResponseDetails" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>The paging details.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <!-- REQUEST/RESPONSE ELEMENTS -->
     <xsd:element name="EmailRequest">
         <xsd:annotation>

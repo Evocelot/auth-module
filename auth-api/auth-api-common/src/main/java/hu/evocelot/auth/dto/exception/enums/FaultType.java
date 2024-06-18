@@ -73,17 +73,22 @@ public enum FaultType {
     EMAIL_ALREADY_IN_USE,
 
     /**
-     * HTTP 500, when the permission name is already in use.
+     * HTTP 422, when the permission name is already in use.
      */
     PERMISSION_NAME_ALREADY_IN_USE,
 
     /**
-     * HTTP 500, when the security group name is already in use.
+     * HTTP 422, when the security group name is already in use.
      */
     SECURITY_GROUP_NAME_ALREADY_IN_USE,
 
     /**
-     * HTTP 500, when the security group is under use.
+     * HTTP 422, when the security group is under use.
      */
     SECURITY_GROUP_IS_UNDER_USE,
+
+    /**
+     * HTTP 500, when the query is failed.
+     */
+    QUERY_FAILED,
 }
