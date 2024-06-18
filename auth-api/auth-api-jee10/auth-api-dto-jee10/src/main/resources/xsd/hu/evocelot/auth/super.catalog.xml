@@ -19,6 +19,9 @@
             uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/PERMISSION/1.0/rest/permission.xsd"/>
     <public publicId="http://api.auth.evocelot.hu/SECURITYGROUP/1.0/rest/security_group"
             uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SECURITYGROUP/1.0/rest/security_group.xsd"/>
+    <public publicId="http://api.auth.evocelot.hu/SECURITYGROUPQUERY/1.0/rest/security_group_query"
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SECURITYGROUPQUERY/1.0/rest/security_group_query.xsd"/>
+
 
     <public publicId="http://api.auth.evocelot.hu/SAMPLE/1.0/rest/post"
             uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/SAMPLE/1.0/rest/post.xsd"/>
