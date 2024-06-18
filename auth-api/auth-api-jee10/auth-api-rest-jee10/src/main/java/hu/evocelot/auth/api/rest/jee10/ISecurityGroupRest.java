@@ -14,6 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import hu.evocelot.auth.api.common._1_0.common.EntityIdRequest;
 import hu.evocelot.auth.api.common.path.AuthPath;
 import hu.evocelot.auth.api.common.restinformation.SecurityGroupRestInformation;
 import hu.evocelot.auth.api.securitygroup._1_0.rest.security_group.SecurityGroupRequest;
@@ -108,4 +109,48 @@ public interface ISecurityGroupRest {
     SecurityGroupResponse getSecurityGroup(
             @PathParam(BaseServicePath.PARAM_ID) @Parameter(description = SecurityGroupRestInformation.SECURITY_GROUP_ID_PARAM_SUMMARY,
                     required = true) String securityGroupId) throws BaseException;
+
+    /**
+     * HTTP POST method for adding permission to the security group.
+     *
+     * @param securityGroupId
+     *         - the id of the security group to add the permission.
+     * @param entityIdRequest
+     *         - the request that contains the id of the permission to add.
+     * @return - with {@link BaseResponse}.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
+    @POST
+    @Operation(summary = SecurityGroupRestInformation.ADD_PERMISSION_TO_SECURITY_GROUP_SUMMARY,
+            description = SecurityGroupRestInformation.ADD_PERMISSION_TO_SECURITY_GROUP_DESCRIPTION)
+    @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
+    @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
+    @Path(BaseServicePath.ID + AuthPath.ADD_PERMISSION)
+    BaseResponse addPermissionToSecurityGroup(
+            @PathParam(BaseServicePath.PARAM_ID) @Parameter(description = SecurityGroupRestInformation.SECURITY_GROUP_ID_PARAM_SUMMARY,
+                    required = true) String securityGroupId, @ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) EntityIdRequest entityIdRequest)
+            throws BaseException;
+
+    /**
+     * HTTP DELETE method for deleting the permission from the security group.
+     *
+     * @param securityGroupId
+     *         - the id of the security group from where remove the permission.
+     * @param entityIdRequest
+     *         - the request that contains the id of the permission to remove.
+     * @return - with {@link BaseResponse}.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
+    @DELETE
+    @Operation(summary = SecurityGroupRestInformation.DELETE_PERMISSION_FROM_SECURITY_GROUP_SUMMARY,
+            description = SecurityGroupRestInformation.DELETE_PERMISSION_FROM_SECURITY_GROUP_DESCRIPTION)
+    @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
+    @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
+    @Path(BaseServicePath.ID + AuthPath.DELETE_PERMISSION)
+    BaseResponse removePermissionFromSecurityGroup(
+            @PathParam(BaseServicePath.PARAM_ID) @Parameter(description = SecurityGroupRestInformation.SECURITY_GROUP_ID_PARAM_SUMMARY,
+                    required = true) String securityGroupId, @ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) EntityIdRequest entityIdRequest)
+            throws BaseException;
 }

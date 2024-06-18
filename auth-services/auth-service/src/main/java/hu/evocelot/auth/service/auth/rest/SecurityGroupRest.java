@@ -3,11 +3,14 @@ package hu.evocelot.auth.service.auth.rest;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import hu.evocelot.auth.api.common._1_0.common.EntityIdRequest;
 import hu.evocelot.auth.api.rest.jee10.ISecurityGroupRest;
 import hu.evocelot.auth.api.securitygroup._1_0.rest.security_group.SecurityGroupRequest;
 import hu.evocelot.auth.api.securitygroup._1_0.rest.security_group.SecurityGroupResponse;
 import hu.evocelot.auth.common.system.rest.rest.BaseRestService;
+import hu.evocelot.auth.service.auth.action.securitygroup.AddPermissionToSecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.CreateSecurityGroupAction;
+import hu.evocelot.auth.service.auth.action.securitygroup.DeletePermissionFromSecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.DeleteSecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.GetSecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.UpdateSecurityGroupAction;
@@ -35,6 +38,12 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
     @Inject
     private GetSecurityGroupAction getSecurityGroupAction;
 
+    @Inject
+    private AddPermissionToSecurityGroupAction addPermissionToSecurityGroupAction;
+
+    @Inject
+    private DeletePermissionFromSecurityGroupAction deletePermissionFromSecurityGroupAction;
+
     @Override
     public SecurityGroupResponse createSecurityGroup(SecurityGroupRequest securityGroupRequest) throws BaseException {
         return wrapPathParam1(createSecurityGroupAction::createSecurityGroup, securityGroupRequest, "createSecurityGroup", "securityGroupRequest");
@@ -59,5 +68,27 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
     @Override
     public SecurityGroupResponse getSecurityGroup(String securityGroupId) throws BaseException {
         return wrapPathParam1(getSecurityGroupAction::getSecurityGroup, securityGroupId, "getSecurityGroup", "securityGroupId");
+    }
+
+    @Override
+    public BaseResponse addPermissionToSecurityGroup(String securityGroupId, EntityIdRequest entityIdRequest) throws BaseException {
+        return wrapPathParam2(
+                addPermissionToSecurityGroupAction::addPermissionToSecurityGroup,
+                securityGroupId,
+                entityIdRequest,
+                "addPermissionToSecurityGroup",
+                "securityGroupId",
+                "entityIdRequest");
+    }
+
+    @Override
+    public BaseResponse removePermissionFromSecurityGroup(String securityGroupId, EntityIdRequest entityIdRequest) throws BaseException {
+        return wrapPathParam2(
+                deletePermissionFromSecurityGroupAction::removePermissionFromSecurityGroup,
+                securityGroupId,
+                entityIdRequest,
+                "removePermissionFromSecurityGroup",
+                "securityGroupId",
+                "entityIdRequest");
     }
 }

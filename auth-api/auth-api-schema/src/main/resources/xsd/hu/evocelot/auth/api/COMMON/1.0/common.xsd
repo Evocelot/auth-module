@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://api.auth.evocelot.hu/COMMON/1.0/common"
+            xmlns:coffeeCommon="http://common.dto.coffee.icellmobilsoft.hu/common"
             xmlns:coffeeCommonService="http://common.dto.coffee.icellmobilsoft.hu/commonservice"
             targetNamespace="http://api.auth.evocelot.hu/COMMON/1.0/common" elementFormDefault="qualified"
             attributeFormDefault="unqualified">
 
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/common"/>
     <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/commonservice"/>
 
     <!-- SIMPLE TYPES -->
@@ -41,6 +43,20 @@
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="EntityIdRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="entityId" type="coffeeCommon:EntityIdType">
+                        <xsd:annotation>
+                            <xsd:documentation>The id of the entity.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <!-- REQUEST/RESPONSE ELEMENTS -->
     <xsd:element name="EmailRequest">
         <xsd:annotation>
@@ -49,6 +65,17 @@
         <xsd:complexType>
             <xsd:complexContent>
                 <xsd:extension base="EmailRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="EntityIdRequest">
+        <xsd:annotation>
+            <xsd:documentation>Request DTO for requests that contains only the entity id.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="EntityIdRequestType"/>
             </xsd:complexContent>
         </xsd:complexType>
     </xsd:element>

@@ -62,4 +62,24 @@ public class SecurityGroupRestInformation {
      * {@value}.
      */
     public static final String GET_SECURITY_GROUP_DESCRIPTION = "Endpoint for getting base details of the security group.";
+
+    /**
+     * {@value}.
+     */
+    public static final String ADD_PERMISSION_TO_SECURITY_GROUP_SUMMARY = "Add permission to the security group";
+
+    /**
+     * {@value}.
+     */
+    public static final String ADD_PERMISSION_TO_SECURITY_GROUP_DESCRIPTION = "Endpoint for adding permission to the security group.";
+
+    /**
+     * {@value}.
+     */
+    public static final String DELETE_PERMISSION_FROM_SECURITY_GROUP_SUMMARY = "Delete permission from the security group";
+
+    /**
+     * {@value}.
+     */
+    public static final String DELETE_PERMISSION_FROM_SECURITY_GROUP_DESCRIPTION = "Endpoint for deleting permission from the security group.";
 }

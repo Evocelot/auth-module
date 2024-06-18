@@ -57,4 +57,14 @@ public class AuthPath extends BaseServicePath {
      * The {@value } path.
      */
     public static final String PROFILE_PICTURE = "/profile-picture";
+
+    /**
+     * The {@value } path.
+     */
+    public static final String ADD_PERMISSION = "/add-permission";
+
+    /**
+     * The {@value } path.
+     */
+    public static final String DELETE_PERMISSION = "/remove-permission";
 }

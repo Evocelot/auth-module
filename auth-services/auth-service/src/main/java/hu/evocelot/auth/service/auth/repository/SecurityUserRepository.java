@@ -25,4 +25,14 @@ public interface SecurityUserRepository extends EntityRepository<SecurityUser, S
      */
     @Query("select case when (count(su) > 0) then true else false end" + " from SecurityUser su where su.emailAddress = :emailAddress")
     boolean emailAddressAlreadyInUse(@QueryParam("emailAddress") String emailAddress);
+
+    /**
+     * Check when the security group is under use.
+     *
+     * @param securityGroupId
+     *         - the id of the security group to find.
+     * @return - with true, if there is at least one security user with the specified security group.
+     */
+    @Query("select case when (count(su) > 0) then true else false end" + " from SecurityUser su where su.securityGroup.id = :securityGroupId")
+    boolean securityGroupIsUnderUse(@QueryParam("securityGroupId") String securityGroupId);
 }

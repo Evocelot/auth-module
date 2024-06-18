@@ -30,4 +30,17 @@ public class SecurityUserService extends BaseService<SecurityUser> {
     public boolean emailAddressAlreadyInUse(String emailAddress) throws BaseException {
         return wrapValidated(securityUserRepository::emailAddressAlreadyInUse, emailAddress, "emailAddressAlreadyInUse", "emailAddress");
     }
+
+    /**
+     * Check when the security group is under use.
+     *
+     * @param securityGroupId
+     *         - the id of the security group to find.
+     * @return - with true, if there is at least one security user with the specified security group.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
+    public boolean securityGroupIsUnderUse(String securityGroupId) throws BaseException {
+        return wrapValidated(securityUserRepository::securityGroupIsUnderUse, securityGroupId, "securityGroupIsUnderUse", "securityGroupId");
+    }
 }
