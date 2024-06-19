@@ -13,6 +13,7 @@
     <properties>
         <version.org.jboss.resteasy.multipart-provider>6.2.9.Final</version.org.jboss.resteasy.multipart-provider>
         <version.hu.evocelot.file.file-api-rest-jee10>0.2.0-SNAPSHOT</version.hu.evocelot.file.file-api-rest-jee10>
+        <version.hu.icellmobilsoft.coffee.coffee-module-redis>2.7.0</version.hu.icellmobilsoft.coffee.coffee-module-redis>
     </properties>
 
     <dependencyManagement>
@@ -87,6 +88,11 @@
                 <artifactId>resteasy-multipart-provider</artifactId>
                 <version>${version.org.jboss.resteasy.multipart-provider}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>hu.icellmobilsoft.coffee</groupId>
+                <artifactId>coffee-module-redis</artifactId>
+                <version>${version.hu.icellmobilsoft.coffee.coffee-module-redis}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
