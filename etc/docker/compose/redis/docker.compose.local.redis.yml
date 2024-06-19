@@ -1,0 +1,11 @@
+services:
+  evocelot-auth-redis:
+    container_name: evocelot-auth-redis
+    image: redis:7.2.3-alpine3.18
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: Europe/Budapest
+networks:
+  default:
+    name: evocelot-network

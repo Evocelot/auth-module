@@ -31,6 +31,10 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>hu.icellmobilsoft.coffee</groupId>
+            <artifactId>coffee-module-redis</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
