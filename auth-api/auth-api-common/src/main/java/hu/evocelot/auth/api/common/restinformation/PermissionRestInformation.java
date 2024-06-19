@@ -41,4 +41,14 @@ public class PermissionRestInformation {
      * {@value }
      */
     public static final String UPDATE_PERMISSION_DESCRIPTION = "Endpoint for updating the base details of the permission.";
+
+    /**
+     * {@value}.
+     */
+    public static final String QUERY_PERMISSION_SUMMARY = "Listing permissions";
+
+    /**
+     * {@value}.
+     */
+    public static final String QUERY_PERMISSION_DESCRIPTION = "Endpoint for listing permissions with filtering, sorting and paging option.";
 }
