@@ -24,6 +24,14 @@
         </xsd:restriction>
     </xsd:simpleType>
 
+    <xsd:simpleType name="SimpleText300NotBlankType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value=".*[^\s].*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
     <!-- GROUPS -->
 
     <!-- COMPLEX TYPES -->

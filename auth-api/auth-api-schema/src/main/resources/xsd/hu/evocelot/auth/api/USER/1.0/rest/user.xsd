@@ -17,6 +17,20 @@
     <!-- GROUPS -->
 
     <!-- COMPLEX TYPES -->
+    <xsd:complexType name="UserType">
+        <xsd:sequence>
+            <xsd:element name="securityUser" type="securityUser:SecurityUserEntityType">
+                <xsd:annotation>
+                    <xsd:documentation>The details of the security user.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="partner" type="partner:PartnerEntityType">
+                <xsd:annotation>
+                    <xsd:documentation>The details of the partner.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
 
     <!-- REQUEST/RESPONSE COMPLEX TYPES -->
     <xsd:complexType name="CreateUserRequestType">
@@ -52,14 +66,9 @@
         <xsd:complexContent>
             <xsd:extension base="coffeeCommonService:BaseResponseType">
                 <xsd:sequence>
-                    <xsd:element name="securityUser" type="securityUser:SecurityUserEntityType">
+                    <xsd:element name="userDetails" type="UserType">
                         <xsd:annotation>
-                            <xsd:documentation>The details of the security user.</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="partner" type="partner:PartnerEntityType">
-                        <xsd:annotation>
-                            <xsd:documentation>The details of the partner.</xsd:documentation>
+                            <xsd:documentation>The details of the user (security user + partner).</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:sequence>
