@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://api.auth.evocelot.hu/PERMISSIONQUERY/1.0/rest/permission_query"
+            xmlns:coffeeCommon="http://common.dto.coffee.icellmobilsoft.hu/common"
+            xmlns:common="http://api.auth.evocelot.hu/COMMON/1.0/common"
+            xmlns:permission="http://api.auth.evocelot.hu/PERMISSION/1.0/rest/permission"
+            targetNamespace="http://api.auth.evocelot.hu/PERMISSIONQUERY/1.0/rest/permission_query"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/common"/>
+    <xsd:import namespace="http://api.auth.evocelot.hu/COMMON/1.0/common"/>
+    <xsd:import namespace="http://api.auth.evocelot.hu/PERMISSION/1.0/rest/permission"/>
+
+    <!-- SIMPLE TYPES -->
+    <xsd:simpleType name="PermissionOrderByColumnEnumType">
+        <xsd:restriction base="coffeeCommon:SimpleText20NotBlankType">
+            <xsd:enumeration value="NAME">
+                <xsd:annotation>
+                    <xsd:documentation>The order type based on the name of the permission.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="DESCRIPTION">
+                <xsd:annotation>
+                    <xsd:documentation>The order type based on the description of the permission.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="SECURITY_GROUP_NAME">
+                <xsd:annotation>
+                    <xsd:documentation>The order type based on the security group name of the permission.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- COMPLEX TYPES -->
+    <xsd:complexType name="PermissionEntityQueryRowType">
+        <xsd:complexContent>
+            <xsd:extension base="permission:PermissionEntityType">
+                <xsd:sequence>
+                    <xsd:element name="securityGroupId" type="coffeeCommon:EntityIdType">
+                        <xsd:annotation>
+                            <xsd:documentation>The unique identifier of the security group for the permission.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="securityGroupName" type="coffeeCommon:SimpleText100NotBlankType">
+                        <xsd:annotation>
+                            <xsd:documentation>The name of the security group for the permission.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="PermissionQueryFilterParamsType">
+        <xsd:sequence>
+            <xsd:element name="name" type="coffeeCommon:SimpleText100NotBlankType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Like filtering based on the name of the permission.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="description" type="coffeeCommon:SimpleText200NotBlankType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Like filtering based on the description of the permission.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="securityGroupId" type="coffeeCommon:EntityIdType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Equal filtering based on the security group id of the permission.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="PermissionQueryOrderParamType">
+        <xsd:sequence>
+            <xsd:element name="column" type="PermissionOrderByColumnEnumType">
+                <xsd:annotation>
+                    <xsd:documentation>Order based on this column.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="order" type="coffeeCommon:OrderByTypeType">
+                <xsd:annotation>
+                    <xsd:documentation>The type of the order (ASC / DESC)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE COMPLEX TYPES -->
+    <xsd:complexType name="PermissionQueryRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="common:BaseQueryRequestType">
+                <xsd:sequence>
+                    <xsd:element name="filterParams" type="PermissionQueryFilterParamsType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>The filter params.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="orderParams" type="PermissionQueryOrderParamType" minOccurs="0"
+                                 maxOccurs="2">
+                        <xsd:annotation>
+                            <xsd:documentation>The order params.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="PermissionQueryResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="common:BaseQueryResponseType">
+                <xsd:sequence>
+                    <xsd:element name="results" type="PermissionEntityQueryRowType" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:documentation>The results of the query.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE ELEMENTS -->
+    <xsd:element name="PermissionQueryRequest">
+        <xsd:annotation>
+            <xsd:documentation>Request DTO for querying the permissions.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="PermissionQueryRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="PermissionQueryResponse">
+        <xsd:annotation>
+            <xsd:documentation>Response DTO for the permission query response.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="PermissionQueryResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

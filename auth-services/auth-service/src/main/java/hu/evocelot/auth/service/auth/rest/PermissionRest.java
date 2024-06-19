@@ -5,10 +5,13 @@ import jakarta.inject.Inject;
 
 import hu.evocelot.auth.api.permission._1_0.rest.permission.PermissionRequest;
 import hu.evocelot.auth.api.permission._1_0.rest.permission.PermissionResponse;
+import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionQueryRequest;
+import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionQueryResponse;
 import hu.evocelot.auth.api.rest.jee10.IPartnerRest;
 import hu.evocelot.auth.api.rest.jee10.IPermissionRest;
 import hu.evocelot.auth.common.system.rest.rest.BaseRestService;
 import hu.evocelot.auth.service.auth.action.permission.GetPermissionAction;
+import hu.evocelot.auth.service.auth.action.permission.QueryPermissionAction;
 import hu.evocelot.auth.service.auth.action.permission.UpdatePermissionAction;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 
@@ -27,6 +30,9 @@ public class PermissionRest extends BaseRestService implements IPermissionRest {
     @Inject
     private UpdatePermissionAction updatePermissionAction;
 
+    @Inject
+    private QueryPermissionAction queryPermissionAction;
+
     @Override
     public PermissionResponse getPermission(String permissionId) throws BaseException {
         return wrapPathParam1(getPermissionAction::getPermission, permissionId, "getPermission", "permissionId");
@@ -34,12 +40,16 @@ public class PermissionRest extends BaseRestService implements IPermissionRest {
 
     @Override
     public PermissionResponse updatePermission(String permissionId, PermissionRequest permissionRequest) throws BaseException {
-        return wrapPathParam2(
-                updatePermissionAction::updatePermission,
+        return wrapPathParam2(updatePermissionAction::updatePermission,
                 permissionId,
                 permissionRequest,
                 "updatePermission",
                 "permissionId",
                 "permissionRequest");
+    }
+
+    @Override
+    public PermissionQueryResponse queryPermission(PermissionQueryRequest permissionQueryRequest) throws BaseException {
+        return wrapPathParam1(queryPermissionAction::queryPermission, permissionQueryRequest, "queryPermission", "permissionQueryRequest");
     }
 }

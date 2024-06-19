@@ -8,6 +8,7 @@
     <xs:import namespace="http://api.auth.evocelot.hu/SECURITYUSER/1.0/rest/security_user"/>
     <xs:import namespace="http://api.auth.evocelot.hu/USER/1.0/rest/user"/>
     <xs:import namespace="http://api.auth.evocelot.hu/PERMISSION/1.0/rest/permission"/>
+    <xs:import namespace="http://api.auth.evocelot.hu/PERMISSIONQUERY/1.0/rest/permission_query"/>
     <xs:import namespace="http://api.auth.evocelot.hu/SECURITYGROUP/1.0/rest/security_group"/>
     <xs:import namespace="http://api.auth.evocelot.hu/SECURITYGROUPQUERY/1.0/rest/security_group_query"/>
 
