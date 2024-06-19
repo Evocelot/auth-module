@@ -24,6 +24,12 @@ import hu.evocelot.auth.model.SecurityGroup_;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 import hu.icellmobilsoft.coffee.se.api.exception.BusinessException;
 
+/**
+ * Service class for listing {@link PermissionToSecurityGroup}s with filtering, sorting and paging.
+ *
+ * @author mark.danisovszky
+ * @since 0.10.0
+ */
 @ApplicationScoped
 public class PermissionQueryService
         extends AbstractQueryService<PermissionToSecurityGroup, PermissionQueryFilterParamsType, PermissionQueryOrderParamType> {

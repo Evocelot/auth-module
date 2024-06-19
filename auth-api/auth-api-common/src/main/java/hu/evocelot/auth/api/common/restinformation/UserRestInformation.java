@@ -46,4 +46,14 @@ public class UserRestInformation {
      * {@value }
      */
     public static final String DELETE_USER_DESCRIPTION = "Endpoint for deleting user (security user + partner).";
+
+    /**
+     * {@value}.
+     */
+    public static final String QUERY_USER_SUMMARY = "Listing users";
+
+    /**
+     * {@value}.
+     */
+    public static final String QUERY_USER_DESCRIPTION = "Endpoint for listing users with filtering, sorting and paging option.";
 }

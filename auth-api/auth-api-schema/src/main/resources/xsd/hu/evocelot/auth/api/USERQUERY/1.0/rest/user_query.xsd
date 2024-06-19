@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://api.auth.evocelot.hu/USERQUERY/1.0/rest/user_query"
+            xmlns:coffeeCommon="http://common.dto.coffee.icellmobilsoft.hu/common"
+            xmlns:common="http://api.auth.evocelot.hu/COMMON/1.0/common"
+            xmlns:user="http://api.auth.evocelot.hu/USER/1.0/rest/user"
+            xmlns:securityUser="http://api.auth.evocelot.hu/SECURITYUSER/1.0/rest/security_user"
+            targetNamespace="http://api.auth.evocelot.hu/USERQUERY/1.0/rest/user_query" elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/common"/>
+    <xsd:import namespace="http://api.auth.evocelot.hu/COMMON/1.0/common"/>
+    <xsd:import namespace="http://api.auth.evocelot.hu/USER/1.0/rest/user"/>
+    <xsd:import namespace="http://api.auth.evocelot.hu/SECURITYUSER/1.0/rest/security_user"/>
+
+    <!-- SIMPLE TYPES -->
+    <xsd:simpleType name="UserOrderByColumnEnumType">
+        <xsd:restriction base="coffeeCommon:SimpleText20NotBlankType">
+            <xsd:enumeration value="EMAIL_ADDRESS">
+                <xsd:annotation>
+                    <xsd:documentation>The order type based on the email address of the user.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="SECURITY_GROUP_NAME">
+                <xsd:annotation>
+                    <xsd:documentation>The order type based on the name of the security group of the user.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="STATUS">
+                <xsd:annotation>
+                    <xsd:documentation>The order type based on the status of the user.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="NAME">
+                <xsd:annotation>
+                    <xsd:documentation>The order type based on the name of the user.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- GROUPS -->
+
+    <!-- COMPLEX TYPES -->
+    <xsd:complexType name="UserQueryFilterParamsType">
+        <xsd:sequence>
+            <xsd:element name="name" type="common:SimpleText300NotBlankType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Like filtering based on the first and last name of the partner. The filter value
+                        will be split based on the space (void) characters. All the sub values must be fit in the first
+                        or the last name.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="phoneNumber" type="coffeeCommon:PhoneType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Like filtering based on the phone number of the partner.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emailAddress" type="common:SimpleText300NotBlankType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Like filtering based on the email address of the security user.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="securityGroupId" type="coffeeCommon:EntityIdType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Equal filtering based on the id of the security group of the security user.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="status" type="securityUser:SecurityUserStatusEnumType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Equal filtering based on the id of the security group of the security user.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="UserQueryOrderParamType">
+        <xsd:sequence>
+            <xsd:element name="column" type="UserOrderByColumnEnumType">
+                <xsd:annotation>
+                    <xsd:documentation>Order based on this column.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="order" type="coffeeCommon:OrderByTypeType">
+                <xsd:annotation>
+                    <xsd:documentation>The type of the order (ASC / DESC)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE COMPLEX TYPES -->
+    <xsd:complexType name="UserQueryRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="common:BaseQueryRequestType">
+                <xsd:sequence>
+                    <xsd:element name="filterParams" type="UserQueryFilterParamsType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>The filter params.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="orderParams" type="UserQueryOrderParamType" minOccurs="0"
+                                 maxOccurs="4">
+                        <xsd:annotation>
+                            <xsd:documentation>The order params.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="UserQueryResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="common:BaseQueryResponseType">
+                <xsd:sequence>
+                    <xsd:element name="results" type="user:UserType" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:documentation>The results of the query.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE ELEMENTS -->
+    <xsd:element name="UserQueryRequest">
+        <xsd:annotation>
+            <xsd:documentation>Request DTO for querying the users.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="UserQueryRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="UserQueryResponse">
+        <xsd:annotation>
+            <xsd:documentation>Response DTO for the user query response.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="UserQueryResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

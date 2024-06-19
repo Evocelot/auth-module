@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 
 import hu.evocelot.auth.api.user._1_0.rest.user.UserResponse;
+import hu.evocelot.auth.api.user._1_0.rest.user.UserType;
 import hu.evocelot.auth.common.system.rest.action.BaseAction;
 import hu.evocelot.auth.model.Partner;
 import hu.evocelot.auth.service.auth.converter.partner.PartnerEntityTypeConverter;
@@ -50,8 +51,10 @@ public class GetUserAction extends BaseAction {
 
         UserResponse response = new UserResponse();
 
-        response.setPartner(partnerEntityTypeConverter.convert(partner));
-        response.setSecurityUser(securityUserEntityTypeConverter.convert(partner.getSecurityUser()));
+        UserType userType = new UserType();
+        userType.setPartner(partnerEntityTypeConverter.convert(partner));
+        userType.setSecurityUser(securityUserEntityTypeConverter.convert(partner.getSecurityUser()));
+        response.setUserDetails(userType);
 
         handleSuccessResultType(response);
         return response;

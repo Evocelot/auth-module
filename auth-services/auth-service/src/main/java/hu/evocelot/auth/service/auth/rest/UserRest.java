@@ -6,10 +6,13 @@ import jakarta.inject.Inject;
 import hu.evocelot.auth.api.rest.jee10.IUserRest;
 import hu.evocelot.auth.api.user._1_0.rest.user.CreateUserRequest;
 import hu.evocelot.auth.api.user._1_0.rest.user.UserResponse;
+import hu.evocelot.auth.api.userquery._1_0.rest.user_query.UserQueryRequest;
+import hu.evocelot.auth.api.userquery._1_0.rest.user_query.UserQueryResponse;
 import hu.evocelot.auth.common.system.rest.rest.BaseRestService;
 import hu.evocelot.auth.service.auth.action.user.CreateUserAction;
 import hu.evocelot.auth.service.auth.action.user.DeleteUserAction;
 import hu.evocelot.auth.service.auth.action.user.GetUserAction;
+import hu.evocelot.auth.service.auth.action.user.QueryUserAction;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 
@@ -31,6 +34,9 @@ public class UserRest extends BaseRestService implements IUserRest {
     @Inject
     private DeleteUserAction deleteUserAction;
 
+    @Inject
+    private QueryUserAction queryUserAction;
+
     @Override
     public UserResponse createUser(CreateUserRequest createUserRequest) throws BaseException {
         return wrapPathParam1(createUserAction::createUser, createUserRequest, "createUser", "createUserRequest");
@@ -44,5 +50,10 @@ public class UserRest extends BaseRestService implements IUserRest {
     @Override
     public BaseResponse deleteUser(String securityUserId) throws BaseException {
         return wrapPathParam1(deleteUserAction::deleteUser, securityUserId, "deleteUser", "securityUserId");
+    }
+
+    @Override
+    public UserQueryResponse queryUser(UserQueryRequest userQueryRequest) throws BaseException {
+        return wrapPathParam1(queryUserAction::queryUser, userQueryRequest, "queryUser", "userQueryRequest");
     }
 }

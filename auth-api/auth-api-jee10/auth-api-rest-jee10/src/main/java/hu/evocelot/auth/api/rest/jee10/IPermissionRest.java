@@ -77,7 +77,7 @@ public interface IPermissionRest {
      *
      * @param permissionQueryRequest
      *         - the request that contains information about the filtering, sorting and paging details.
-     * @return - with {@link PermissionResponse} that contains the relevant permissions.
+     * @return - with {@link PermissionQueryResponse} that contains the relevant permissions.
      * @throws BaseException
      *         - when an error occurs.
      */

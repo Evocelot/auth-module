@@ -13,6 +13,7 @@ import hu.evocelot.auth.api.partner._1_0.rest.partner.PartnerEntityCoreType;
 import hu.evocelot.auth.api.securityuser._1_0.rest.security_user.SecurityUserEntityCoreType;
 import hu.evocelot.auth.api.user._1_0.rest.user.CreateUserRequest;
 import hu.evocelot.auth.api.user._1_0.rest.user.UserResponse;
+import hu.evocelot.auth.api.user._1_0.rest.user.UserType;
 import hu.evocelot.auth.common.system.rest.action.BaseAction;
 import hu.evocelot.auth.dto.exception.enums.FaultType;
 import hu.evocelot.auth.model.Partner;
@@ -119,8 +120,10 @@ public class CreateUserAction extends BaseAction {
         // Create the response.
         UserResponse response = new UserResponse();
 
-        response.setSecurityUser(securityUserEntityTypeConverter.convert(securityUser));
-        response.setPartner(partnerEntityTypeConverter.convert(partner));
+        UserType userType = new UserType();
+        userType.setSecurityUser(securityUserEntityTypeConverter.convert(securityUser));
+        userType.setPartner(partnerEntityTypeConverter.convert(partner));
+        response.setUserDetails(userType);
 
         handleSuccessResultType(response, createUserRequest);
 
