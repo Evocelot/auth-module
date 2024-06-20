@@ -16,6 +16,7 @@ import hu.evocelot.auth.dto.exception.enums.FaultType;
 import hu.evocelot.auth.model.SecurityGroup;
 import hu.evocelot.auth.service.auth.converter.securitygroup.SecurityGroupEntityCoreTypeConverter;
 import hu.evocelot.auth.service.auth.converter.securitygroup.SecurityGroupEntityTypeConverter;
+import hu.evocelot.auth.service.auth.helper.RedisHelper;
 import hu.evocelot.auth.service.auth.service.SecurityGroupService;
 import hu.icellmobilsoft.coffee.dto.exception.InvalidParameterException;
 import hu.icellmobilsoft.coffee.jpa.helper.TransactionHelper;
@@ -39,6 +40,9 @@ public class UpdateSecurityGroupAction extends BaseAction {
 
     @Inject
     private SecurityGroupService securityGroupService;
+
+    @Inject
+    private RedisHelper redisHelper;
 
     @Inject
     private TransactionHelper transactionHelper;
@@ -80,6 +84,8 @@ public class UpdateSecurityGroupAction extends BaseAction {
 
         SecurityGroup finalEntity = securityGroup;
         securityGroup = transactionHelper.executeWithTransaction(() -> securityGroupService.save(finalEntity));
+
+        redisHelper.endSecurityGroupSessions(securityGroup.getId());
 
         SecurityGroupResponse response = new SecurityGroupResponse();
         response.setSecurityGroup(securityGroupEntityTypeConverter.convert(securityGroup));

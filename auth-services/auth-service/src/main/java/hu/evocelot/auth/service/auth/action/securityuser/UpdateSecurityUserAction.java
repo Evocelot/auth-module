@@ -15,6 +15,7 @@ import hu.evocelot.auth.model.SecurityGroup;
 import hu.evocelot.auth.model.SecurityUser;
 import hu.evocelot.auth.service.auth.converter.securityuser.SecurityUserEntityCoreTypeConverter;
 import hu.evocelot.auth.service.auth.converter.securityuser.SecurityUserEntityTypeConverter;
+import hu.evocelot.auth.service.auth.helper.RedisHelper;
 import hu.evocelot.auth.service.auth.service.SecurityGroupService;
 import hu.evocelot.auth.service.auth.service.SecurityUserService;
 import hu.icellmobilsoft.coffee.dto.exception.InvalidParameterException;
@@ -41,6 +42,9 @@ public class UpdateSecurityUserAction extends BaseAction {
 
     @Inject
     private SecurityGroupService securityGroupService;
+
+    @Inject
+    private RedisHelper redisHelper;
 
     @Inject
     private TransactionHelper transactionHelper;
@@ -76,6 +80,9 @@ public class UpdateSecurityUserAction extends BaseAction {
 
         SecurityUser finalEntity = securityUser;
         securityUser = transactionHelper.executeWithTransaction(() -> securityUserService.save(finalEntity));
+
+        // TODO: expire the sessions in the db too.
+        redisHelper.endUserSessions(securityUser.getId());
 
         SecurityUserResponse response = new SecurityUserResponse();
         response.setSecurityUser(securityUserEntityTypeConverter.convert(securityUser));

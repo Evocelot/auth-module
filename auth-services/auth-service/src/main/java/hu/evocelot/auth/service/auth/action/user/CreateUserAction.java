@@ -1,8 +1,5 @@
 package hu.evocelot.auth.service.auth.action.user;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
 import java.util.Objects;
 
@@ -23,6 +20,7 @@ import hu.evocelot.auth.service.auth.converter.partner.PartnerEntityCoreTypeConv
 import hu.evocelot.auth.service.auth.converter.partner.PartnerEntityTypeConverter;
 import hu.evocelot.auth.service.auth.converter.securityuser.SecurityUserEntityCoreTypeConverter;
 import hu.evocelot.auth.service.auth.converter.securityuser.SecurityUserEntityTypeConverter;
+import hu.evocelot.auth.service.auth.helper.PasswordHelper;
 import hu.evocelot.auth.service.auth.service.PartnerService;
 import hu.evocelot.auth.service.auth.service.SecurityGroupService;
 import hu.evocelot.auth.service.auth.service.SecurityUserService;
@@ -65,6 +63,9 @@ public class CreateUserAction extends BaseAction {
     @Inject
     private TransactionHelper transactionHelper;
 
+    @Inject
+    private PasswordHelper passwordHelper;
+
     /**
      * For creating users (security user + partner).
      *
@@ -98,7 +99,8 @@ public class CreateUserAction extends BaseAction {
         securityUser.setEmailAddress(createUserRequest.getEmailAddress());
 
         if (securityUserService.emailAddressAlreadyInUse(securityUser.getEmailAddress())) {
-            throw new BusinessException(FaultType.EMAIL_ALREADY_IN_USE,
+            throw new BusinessException(
+                    FaultType.EMAIL_ALREADY_IN_USE,
                     MessageFormat.format("The provided email address [{0}] is already in use!", securityUser.getEmailAddress()));
         }
 
@@ -107,7 +109,7 @@ public class CreateUserAction extends BaseAction {
         securityUser.setSecurityGroup(securityGroup);
 
         // TODO: Generates the password and send the mail instead of set the password via API.
-        securityUser.setPasswordHash(encryptPassword(createUserRequest.getPasswordHash(), securityUserId));
+        securityUser.setPasswordHash(passwordHelper.encryptPassword(createUserRequest.getPasswordHash(), securityUserId));
         SecurityUser finalSecurityUserEntity = securityUser;
         securityUser = transactionHelper.executeWithTransaction(() -> securityUserService.save(finalSecurityUserEntity));
 
@@ -128,27 +130,5 @@ public class CreateUserAction extends BaseAction {
         handleSuccessResultType(response, createUserRequest);
 
         return response;
-    }
-
-    private String encryptPassword(String originalPassword, String salt) throws BusinessException {
-        String saltedPassword = originalPassword + salt;
-        String encryptedPassword = null;
-
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            byte[] bytes = md.digest(saltedPassword.getBytes(StandardCharsets.UTF_8));
-
-            StringBuilder sb = new StringBuilder();
-            for (byte b : bytes) {
-                sb.append(String.format("%02x", b));
-            }
-
-            encryptedPassword = sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new BusinessException(FaultType.REST_INTERNAL_SERVER_ERROR,
-                    MessageFormat.format("Cannot hash the password. Message: [{0}]", e.getMessage()));
-        }
-
-        return encryptedPassword;
     }
 }

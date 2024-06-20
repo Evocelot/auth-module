@@ -91,4 +91,34 @@ public enum FaultType {
      * HTTP 500, when the query is failed.
      */
     QUERY_FAILED,
+
+    /**
+     * HTTP 500, when login failed.
+     */
+    LOGIN_FAILED,
+
+    /**
+     * HTTP 500, when the security user is inactive.
+     */
+    SECURITY_USER_NOT_ACTIVATED,
+
+    /**
+     * HTTP 500, when the security user is banned.
+     */
+    SECURITY_USER_BANNED,
+
+    /**
+     * HTTP 500, when the access token is not present in the header.
+     */
+    ACCESS_TOKEN_NOT_PRESENT,
+
+    /**
+     * HTTP 422, when the user is not logged in.
+     */
+    NOT_LOGGED_IN,
+
+    /**
+     * When the token expired.
+     */
+    TOKEN_EXPIRED,
 }

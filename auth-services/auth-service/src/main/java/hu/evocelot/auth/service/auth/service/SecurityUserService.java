@@ -43,4 +43,15 @@ public class SecurityUserService extends BaseService<SecurityUser> {
     public boolean securityGroupIsUnderUse(String securityGroupId) throws BaseException {
         return wrapValidated(securityUserRepository::securityGroupIsUnderUse, securityGroupId, "securityGroupIsUnderUse", "securityGroupId");
     }
+
+    /**
+     * Finds the {@link SecurityUser} based on the email address.
+     *
+     * @param emailAddress
+     *         - the email address.
+     * @return - with the {@link SecurityUser}.
+     */
+    public SecurityUser findByEmailAddress(String emailAddress) throws BaseException {
+        return wrapValidated(securityUserRepository::findByEmailAddress, emailAddress, "findByEmailAddress", "emailAddress");
+    }
 }

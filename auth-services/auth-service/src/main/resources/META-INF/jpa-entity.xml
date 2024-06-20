@@ -9,5 +9,6 @@
     <entity class="hu.evocelot.auth.model.SecurityGroup"/>
     <entity class="hu.evocelot.auth.model.Permission"/>
     <entity class="hu.evocelot.auth.model.PermissionToSecurityGroup"/>
+    <entity class="hu.evocelot.auth.model.Token"/>
 
 </entity-mappings>

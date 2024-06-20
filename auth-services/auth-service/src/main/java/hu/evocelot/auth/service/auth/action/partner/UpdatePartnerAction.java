@@ -14,6 +14,7 @@ import hu.evocelot.auth.common.system.rest.action.BaseAction;
 import hu.evocelot.auth.model.Partner;
 import hu.evocelot.auth.service.auth.converter.partner.PartnerEntityCoreTypeConverter;
 import hu.evocelot.auth.service.auth.converter.partner.PartnerEntityTypeConverter;
+import hu.evocelot.auth.service.auth.helper.RedisHelper;
 import hu.evocelot.auth.service.auth.service.PartnerService;
 import hu.icellmobilsoft.coffee.dto.exception.InvalidParameterException;
 import hu.icellmobilsoft.coffee.jpa.helper.TransactionHelper;
@@ -36,6 +37,9 @@ public class UpdatePartnerAction extends BaseAction {
 
     @Inject
     private PartnerService partnerService;
+
+    @Inject
+    private RedisHelper redisHelper;
 
     @Inject
     private TransactionHelper transactionHelper;
@@ -69,6 +73,9 @@ public class UpdatePartnerAction extends BaseAction {
 
         Partner finalEntity = partner;
         partner = transactionHelper.executeWithTransaction(() -> partnerService.save(finalEntity));
+
+        // TODO: expire the sessions in the db too.
+        redisHelper.endUserSessions(partner.getSecurityUser().getId());
 
         PartnerResponse response = new PartnerResponse();
         response.setPartner(partnerEntityTypeConverter.convert(partner));

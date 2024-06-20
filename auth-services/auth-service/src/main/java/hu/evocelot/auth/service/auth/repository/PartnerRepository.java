@@ -27,4 +27,13 @@ public interface PartnerRepository extends EntityRepository<Partner, String> {
     @Query("SELECT p FROM Partner p JOIN FETCH p.securityUser WHERE p.securityUser.id = :securityUserId")
     Partner findBySecurityUserIdFetchSecurityUser(@QueryParam("securityUserId") String securityUserId);
 
+    /**
+     * Finds a {@link Partner} by the given security user ID.
+     *
+     * @param securityUserId
+     *         the ID of the security user to find the associated partner.
+     * @return the {@link Partner} entity with the given security user ID.
+     */
+    @Query("SELECT p FROM Partner p WHERE p.securityUser.id = :securityUserId")
+    Partner findBySecurityUserId(@QueryParam("securityUserId") String securityUserId);
 }

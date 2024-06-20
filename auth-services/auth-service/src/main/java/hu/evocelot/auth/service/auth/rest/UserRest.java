@@ -13,6 +13,9 @@ import hu.evocelot.auth.service.auth.action.user.CreateUserAction;
 import hu.evocelot.auth.service.auth.action.user.DeleteUserAction;
 import hu.evocelot.auth.service.auth.action.user.GetUserAction;
 import hu.evocelot.auth.service.auth.action.user.QueryUserAction;
+import hu.evocelot.auth.service.auth.interceptor.Permission;
+import hu.evocelot.auth.service.auth.interceptor.PermissionNeeded;
+import hu.evocelot.auth.service.auth.interceptor.Secured;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 
@@ -38,21 +41,29 @@ public class UserRest extends BaseRestService implements IUserRest {
     private QueryUserAction queryUserAction;
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.CREATE_USER)
     public UserResponse createUser(CreateUserRequest createUserRequest) throws BaseException {
         return wrapPathParam1(createUserAction::createUser, createUserRequest, "createUser", "createUserRequest");
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.GET_USER)
     public UserResponse getUser(String securityUserId) throws BaseException {
         return wrapPathParam1(getUserAction::getUser, securityUserId, "getUser", "securityUserId");
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.DELETE_USER)
     public BaseResponse deleteUser(String securityUserId) throws BaseException {
         return wrapPathParam1(deleteUserAction::deleteUser, securityUserId, "deleteUser", "securityUserId");
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.QUERY_USER)
     public UserQueryResponse queryUser(UserQueryRequest userQueryRequest) throws BaseException {
         return wrapPathParam1(queryUserAction::queryUser, userQueryRequest, "queryUser", "userQueryRequest");
     }

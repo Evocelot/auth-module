@@ -3,12 +3,14 @@
             xmlns="http://api.auth.evocelot.hu/SECURITYGROUP/1.0/rest/security_group"
             xmlns:coffeeCommon="http://common.dto.coffee.icellmobilsoft.hu/common"
             xmlns:coffeeCommonService="http://common.dto.coffee.icellmobilsoft.hu/commonservice"
+            xmlns:permission="http://api.auth.evocelot.hu/PERMISSION/1.0/rest/permission"
             targetNamespace="http://api.auth.evocelot.hu/SECURITYGROUP/1.0/rest/security_group"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified">
 
     <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/common"/>
     <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/commonservice"/>
+    <xsd:import namespace="http://api.auth.evocelot.hu/PERMISSION/1.0/rest/permission"/>
 
     <!-- SIMPLE TYPES -->
 
@@ -35,6 +37,21 @@
                     <xsd:element name="securityGroupId" type="coffeeCommon:EntityIdType">
                         <xsd:annotation>
                             <xsd:documentation>The unique identifier of the security group.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="SecurityGroupWithPermissionsType">
+        <xsd:complexContent>
+            <xsd:extension base="SecurityGroupEntityType">
+                <xsd:sequence>
+                    <xsd:element name="permissions" type="permission:PermissionEntityType" minOccurs="0"
+                                 maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:documentation>The permission list of the security group.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:sequence>

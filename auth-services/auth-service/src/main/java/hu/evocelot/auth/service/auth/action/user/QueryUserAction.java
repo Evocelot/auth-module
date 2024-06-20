@@ -76,7 +76,7 @@ public class QueryUserAction extends BaseAction {
 
             row.setPartner(partnerEntityTypeConverter.convert(result));
             row.setSecurityUser(securityUserEntityTypeConverter.convert(result.getSecurityUser()));
-
+            row.setSecurityGroupName(result.getSecurityUser().getSecurityGroup().getName());
             rows.add(row);
         }
 

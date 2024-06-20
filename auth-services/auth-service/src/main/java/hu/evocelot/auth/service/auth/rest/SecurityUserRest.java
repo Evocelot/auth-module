@@ -11,6 +11,9 @@ import hu.evocelot.auth.common.system.rest.rest.BaseRestService;
 import hu.evocelot.auth.service.auth.action.securityuser.ChangeCurrentPasswordAction;
 import hu.evocelot.auth.service.auth.action.securityuser.UpdateCurrentSecurityUserAction;
 import hu.evocelot.auth.service.auth.action.securityuser.UpdateSecurityUserAction;
+import hu.evocelot.auth.service.auth.interceptor.Permission;
+import hu.evocelot.auth.service.auth.interceptor.PermissionNeeded;
+import hu.evocelot.auth.service.auth.interceptor.Secured;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 
 /**
@@ -32,6 +35,8 @@ public class SecurityUserRest extends BaseRestService implements ISecurityUserRe
     private ChangeCurrentPasswordAction changeCurrentPasswordAction;
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.UPDATE_SECURITY_USER)
     public SecurityUserResponse updateSecurityUser(String securityUserId, UpdateSecurityUserRequest updateSecurityUserRequest) throws BaseException {
         return wrapPathParam2(
                 updateSecurityUserAction::updateSecurityUser,
@@ -43,6 +48,8 @@ public class SecurityUserRest extends BaseRestService implements ISecurityUserRe
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.UPDATE_CURRENT_SECURITY_USER)
     public SecurityUserResponse updateCurrentSecurityUser(UpdateSecurityUserRequest updateSecurityUserRequest) throws BaseException {
         return wrapPathParam1(
                 updateCurrentSecurityUserAction::updateCurrentSecurityUser,
@@ -52,6 +59,8 @@ public class SecurityUserRest extends BaseRestService implements ISecurityUserRe
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.CHANGE_CURRENT_PASSWORD)
     public SecurityUserResponse changeCurrentPassword(ChangeCurrentPasswordRequest changeCurrentPasswordRequest) throws BaseException {
         return wrapPathParam1(
                 changeCurrentPasswordAction::changeCurrentPassword,

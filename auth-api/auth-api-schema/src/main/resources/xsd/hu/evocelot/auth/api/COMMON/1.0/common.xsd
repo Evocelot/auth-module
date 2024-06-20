@@ -32,9 +32,45 @@
         </xsd:restriction>
     </xsd:simpleType>
 
+    <xsd:simpleType name="TokenTypeEnumType">
+        <xsd:restriction base="coffeeCommon:SimpleText20NotBlankType">
+            <xsd:enumeration value="ACCESS_TOKEN"/>
+            <xsd:enumeration value="REFRESH_TOKEN"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
     <!-- GROUPS -->
 
     <!-- COMPLEX TYPES -->
+    <xsd:complexType name="TokenType">
+        <xsd:sequence>
+            <xsd:element name="tokenId" type="coffeeCommon:EntityIdType">
+                <xsd:annotation>
+                    <xsd:documentation>The id of the token.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tokenValue" type="coffeeCommon:SimpleText100NotBlankType">
+                <xsd:annotation>
+                    <xsd:documentation>The value of the token.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="type" type="TokenTypeEnumType">
+                <xsd:annotation>
+                    <xsd:documentation>The type of the token.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="createdAt" type="coffeeCommon:TimestampType">
+                <xsd:annotation>
+                    <xsd:documentation>The creation time of the token.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="expiresAt" type="coffeeCommon:TimestampType">
+                <xsd:annotation>
+                    <xsd:documentation>The expiration time of the token.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
 
     <!-- REQUEST/RESPONSE COMPLEX TYPES -->
     <xsd:complexType name="EmailRequestType">

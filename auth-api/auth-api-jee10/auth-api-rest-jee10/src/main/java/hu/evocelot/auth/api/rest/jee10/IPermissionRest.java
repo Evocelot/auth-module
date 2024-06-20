@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import hu.evocelot.auth.api.common.path.AuthPath;
@@ -19,6 +20,7 @@ import hu.evocelot.auth.api.permission._1_0.rest.permission.PermissionRequest;
 import hu.evocelot.auth.api.permission._1_0.rest.permission.PermissionResponse;
 import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionQueryRequest;
 import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionQueryResponse;
+import hu.evocelot.auth.api.rest.jee10.constant.SecuritySchemeConstant;
 import hu.evocelot.auth.dto.constant.XsdConstants;
 import hu.icellmobilsoft.coffee.cdi.annotation.xml.ValidateXML;
 import hu.icellmobilsoft.coffee.dto.url.BaseServicePath;
@@ -31,7 +33,7 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
  * @since 0.10.0
  */
 @Tag(name = PermissionRestInformation.TAG, description = PermissionRestInformation.DESCRIPTION)
-@Path(AuthPath.PERMISSION_SERVICE)
+@Path(AuthPath.PERMISSION_MANAGEMENT)
 public interface IPermissionRest {
 
     /**
@@ -45,6 +47,7 @@ public interface IPermissionRest {
      */
     @GET
     @Operation(summary = PermissionRestInformation.GET_PERMISSION_SUMMARY, description = PermissionRestInformation.GET_PERMISSION_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.ID)
     PermissionResponse getPermission(
@@ -64,6 +67,7 @@ public interface IPermissionRest {
      */
     @PUT
     @Operation(summary = PermissionRestInformation.UPDATE_PERMISSION_SUMMARY, description = PermissionRestInformation.UPDATE_PERMISSION_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.ID)
@@ -83,6 +87,7 @@ public interface IPermissionRest {
      */
     @POST
     @Operation(summary = PermissionRestInformation.QUERY_PERMISSION_SUMMARY, description = PermissionRestInformation.QUERY_PERMISSION_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.QUERY)

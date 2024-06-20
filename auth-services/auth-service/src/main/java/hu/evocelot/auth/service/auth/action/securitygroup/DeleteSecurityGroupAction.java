@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import hu.evocelot.auth.common.system.rest.action.BaseAction;
 import hu.evocelot.auth.dto.exception.enums.FaultType;
 import hu.evocelot.auth.model.SecurityGroup;
+import hu.evocelot.auth.service.auth.helper.RedisHelper;
 import hu.evocelot.auth.service.auth.service.SecurityGroupService;
 import hu.evocelot.auth.service.auth.service.SecurityUserService;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
@@ -33,6 +34,9 @@ public class DeleteSecurityGroupAction extends BaseAction {
 
     @Inject
     private SecurityUserService securityUserService;
+
+    @Inject
+    private RedisHelper redisHelper;
 
     @Inject
     private TransactionHelper transactionHelper;
@@ -61,6 +65,8 @@ public class DeleteSecurityGroupAction extends BaseAction {
         }
 
         securityGroupService.delete(securityGroup);
+
+        redisHelper.deleteKey(securityGroup.getId());
 
         BaseResponse response = new BaseResponse();
         handleSuccessResultType(response);

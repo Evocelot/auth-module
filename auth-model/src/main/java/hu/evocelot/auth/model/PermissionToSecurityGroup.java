@@ -5,6 +5,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 import hu.icellmobilsoft.coffee.model.base.javatime.AbstractIdentifiedAuditEntity;
 
@@ -21,6 +22,7 @@ public class PermissionToSecurityGroup extends AbstractIdentifiedAuditEntity {
     /**
      * The security group.
      */
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "security_group_id")
     private SecurityGroup securityGroup;
@@ -28,6 +30,7 @@ public class PermissionToSecurityGroup extends AbstractIdentifiedAuditEntity {
     /**
      * The permission.
      */
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "permission_id")
     private Permission permission;

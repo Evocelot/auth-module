@@ -8,11 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import hu.evocelot.auth.common.system.rest.action.BaseAction;
 import hu.evocelot.auth.model.Partner;
+import hu.evocelot.auth.service.auth.helper.RedisHelper;
 import hu.evocelot.auth.service.auth.service.PartnerService;
 import hu.evocelot.auth.service.auth.service.SecurityUserService;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
 import hu.icellmobilsoft.coffee.dto.exception.InvalidParameterException;
-import hu.icellmobilsoft.coffee.jpa.helper.TransactionHelper;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 
 /**
@@ -29,6 +29,9 @@ public class DeleteUserAction extends BaseAction {
 
     @Inject
     private SecurityUserService securityUserService;
+
+    @Inject
+    private RedisHelper redisHelper;
 
     /**
      * For deleting the user (security user and partner)
@@ -49,6 +52,9 @@ public class DeleteUserAction extends BaseAction {
 
         partnerService.delete(partner);
         securityUserService.delete(partner.getSecurityUser());
+
+        // TODO: expire the sessions in the db too.
+        redisHelper.endUserSessions(partner.getSecurityUser().getId());
 
         BaseResponse response = new BaseResponse();
         handleSuccessResultType(response);

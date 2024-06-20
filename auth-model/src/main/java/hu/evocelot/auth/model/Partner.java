@@ -7,6 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import hu.icellmobilsoft.coffee.model.base.javatime.AbstractIdentifiedAuditEntity;
 
@@ -23,24 +24,30 @@ public class Partner extends AbstractIdentifiedAuditEntity {
     /**
      * The first name of the partner.
      */
+    @Size(max = 150)
+    @NotNull
     @Column(name = "first_name", length = 150, nullable = false)
     private String firstName;
 
     /**
      * The last name of the partner.
      */
+    @Size(max = 150)
+    @NotNull
     @Column(name = "last_name", length = 150, nullable = false)
     private String lastName;
 
     /**
      * The phone number of the partner.
      */
+    @Size(max = 20)
     @Column(name = "phone_number", length = 20, nullable = true)
     private String phoneNumber;
 
     /**
      * The id of the profile picture for the partner.
      */
+    @Size(max = 30)
     @Column(name = "profile_picture_id", length = 30, nullable = true)
     private String profilePictureId;
 
@@ -54,6 +61,7 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For getting the firstName.
+     *
      * @return - with the firstName.
      */
     public String getFirstName() {
@@ -62,7 +70,9 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For setting the firstName.
-     * @param firstName - the firstName to set.
+     *
+     * @param firstName
+     *         - the firstName to set.
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -70,6 +80,7 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For getting the lastName.
+     *
      * @return - with the lastName.
      */
     public String getLastName() {
@@ -78,7 +89,9 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For setting the lastName.
-     * @param lastName - the lastName to set.
+     *
+     * @param lastName
+     *         - the lastName to set.
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -86,6 +99,7 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For getting the phoneNumber.
+     *
      * @return - with the phoneNumber.
      */
     public String getPhoneNumber() {
@@ -94,7 +108,9 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For setting the phoneNumber.
-     * @param phoneNumber - the phoneNumber to set.
+     *
+     * @param phoneNumber
+     *         - the phoneNumber to set.
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -102,6 +118,7 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For getting the securityUser.
+     *
      * @return - with the securityUser.
      */
     public SecurityUser getSecurityUser() {
@@ -110,7 +127,9 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For setting the securityUser.
-     * @param securityUser - the securityUser to set.
+     *
+     * @param securityUser
+     *         - the securityUser to set.
      */
     public void setSecurityUser(SecurityUser securityUser) {
         this.securityUser = securityUser;
@@ -118,6 +137,7 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For getting the profilePictureId.
+     *
      * @return - with the profilePictureId.
      */
     public String getProfilePictureId() {
@@ -126,7 +146,9 @@ public class Partner extends AbstractIdentifiedAuditEntity {
 
     /**
      * For setting the profilePictureId.
-     * @param profilePictureId - the profilePictureId to set.
+     *
+     * @param profilePictureId
+     *         - the profilePictureId to set.
      */
     public void setProfilePictureId(String profilePictureId) {
         this.profilePictureId = profilePictureId;

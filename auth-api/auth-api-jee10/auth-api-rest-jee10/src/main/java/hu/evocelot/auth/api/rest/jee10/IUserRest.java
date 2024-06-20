@@ -11,11 +11,13 @@ import jakarta.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import hu.evocelot.auth.api.common.path.AuthPath;
 import hu.evocelot.auth.api.common.restinformation.SecurityUserRestInformation;
 import hu.evocelot.auth.api.common.restinformation.UserRestInformation;
+import hu.evocelot.auth.api.rest.jee10.constant.SecuritySchemeConstant;
 import hu.evocelot.auth.api.user._1_0.rest.user.CreateUserRequest;
 import hu.evocelot.auth.api.user._1_0.rest.user.UserResponse;
 import hu.evocelot.auth.api.userquery._1_0.rest.user_query.UserQueryRequest;
@@ -33,7 +35,7 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
  * @since 0.10.0
  */
 @Tag(name = UserRestInformation.TAG, description = UserRestInformation.DESCRIPTION)
-@Path(AuthPath.USER_SERVICE)
+@Path(AuthPath.USER_MANAGEMENT)
 public interface IUserRest {
 
     /**
@@ -47,6 +49,7 @@ public interface IUserRest {
      */
     @POST
     @Operation(summary = UserRestInformation.CREATE_USER_SUMMARY, description = UserRestInformation.CREATE_USER_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     UserResponse createUser(@ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) CreateUserRequest createUserRequest) throws BaseException;
@@ -62,6 +65,7 @@ public interface IUserRest {
      */
     @GET
     @Operation(summary = UserRestInformation.GET_USER_SUMMARY, description = UserRestInformation.GET_USER_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Path(AuthPath.ID)
     UserResponse getUser(@Parameter(description = SecurityUserRestInformation.SECURITY_USER_ID_PARAM_SUMMARY, required = true) @PathParam(
@@ -78,6 +82,7 @@ public interface IUserRest {
      */
     @DELETE
     @Operation(summary = UserRestInformation.DELETE_USER_SUMMARY, description = UserRestInformation.DELETE_USER_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Path(AuthPath.ID)
     BaseResponse deleteUser(@Parameter(description = SecurityUserRestInformation.SECURITY_USER_ID_PARAM_SUMMARY, required = true) @PathParam(
@@ -94,6 +99,7 @@ public interface IUserRest {
      */
     @POST
     @Operation(summary = UserRestInformation.QUERY_USER_SUMMARY, description = UserRestInformation.QUERY_USER_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.QUERY)

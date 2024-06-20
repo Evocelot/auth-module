@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://api.auth.evocelot.hu/AUTH/1.0/rest/auth"
+            xmlns:common="http://api.auth.evocelot.hu/COMMON/1.0/common"
+            xmlns:coffeeCommonService="http://common.dto.coffee.icellmobilsoft.hu/commonservice"
+            xmlns:user="http://api.auth.evocelot.hu/USER/1.0/rest/user"
+            xmlns:securityGroup="http://api.auth.evocelot.hu/SECURITYGROUP/1.0/rest/security_group"
+            targetNamespace="http://api.auth.evocelot.hu/AUTH/1.0/rest/auth" elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://api.auth.evocelot.hu/COMMON/1.0/common"/>
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/commonservice"/>
+    <xsd:import namespace="http://api.auth.evocelot.hu/USER/1.0/rest/user"/>
+    <xsd:import namespace="http://api.auth.evocelot.hu/SECURITYGROUP/1.0/rest/security_group"/>
+
+    <!-- SIMPLE TYPES -->
+
+    <!-- GROUPS -->
+
+    <!-- COMPLEX TYPES -->
+    <xsd:complexType name="CurrentUserDetailsType">
+        <xsd:sequence>
+            <xsd:element name="user" type="user:UserType">
+                <xsd:annotation>
+                    <xsd:documentation>The details of the user.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="refreshToken" type="common:TokenType">
+                <xsd:annotation>
+                    <xsd:documentation>The details of the refresh token.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="securityGroup" type="securityGroup:SecurityGroupWithPermissionsType">
+                <xsd:annotation>
+                    <xsd:documentation>The details of the security group.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE COMPLEX TYPES -->
+    <xsd:complexType name="LoginRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="emailAddress" type="common:EmailType">
+                        <xsd:annotation>
+                            <xsd:documentation>The email address of the security user.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="passwordHash" type="common:PasswordType">
+                        <xsd:annotation>
+                            <xsd:documentation>The hashed password.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="LoginResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="coffeeCommonService:BaseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="userDetails" type="CurrentUserDetailsType">
+                        <xsd:annotation>
+                            <xsd:documentation>The details of the current user.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="accessToken" type="common:TokenType">
+                        <xsd:annotation>
+                            <xsd:documentation>The details of the access token.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- REQUEST/RESPONSE ELEMENTS -->
+    <xsd:element name="LoginRequest">
+        <xsd:annotation>
+            <xsd:documentation>Request DTO for the logging in.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="LoginRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="LoginResponse">
+        <xsd:annotation>
+            <xsd:documentation>Response DTO for the login responses.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="LoginResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

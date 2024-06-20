@@ -4,6 +4,7 @@
            attributeFormDefault="unqualified">
 
     <xs:import namespace="http://api.auth.evocelot.hu/COMMON/1.0/common"/>
+    <xs:import namespace="http://api.auth.evocelot.hu/AUTH/1.0/rest/auth"/>
     <xs:import namespace="http://api.auth.evocelot.hu/PARTNER/1.0/rest/partner"/>
     <xs:import namespace="http://api.auth.evocelot.hu/SECURITYUSER/1.0/rest/security_user"/>
     <xs:import namespace="http://api.auth.evocelot.hu/USER/1.0/rest/user"/>

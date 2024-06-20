@@ -14,3 +14,9 @@ info:
     url: logo.png
     backgroundColor: #FFFFFF
     altText: Auth logo
+components:
+  securitySchemes:
+    AccessToken:
+      type: apiKey
+      in: header
+      name: accessToken

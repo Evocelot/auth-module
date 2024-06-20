@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.Response;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
@@ -19,6 +20,7 @@ import hu.evocelot.auth.api.common.path.AuthPath;
 import hu.evocelot.auth.api.common.restinformation.PartnerRestInformation;
 import hu.evocelot.auth.api.partner._1_0.rest.partner.PartnerResponse;
 import hu.evocelot.auth.api.partner._1_0.rest.partner.UpdatePartnerRequest;
+import hu.evocelot.auth.api.rest.jee10.constant.SecuritySchemeConstant;
 import hu.evocelot.auth.api.rest.jee10.dto.UploadProfilePictureRequest;
 import hu.evocelot.auth.dto.constant.XsdConstants;
 import hu.icellmobilsoft.coffee.cdi.annotation.xml.ValidateXML;
@@ -32,7 +34,7 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
  * @since 0.10.0
  */
 @Tag(name = PartnerRestInformation.TAG, description = PartnerRestInformation.DESCRIPTION)
-@Path(AuthPath.PARTNER_SERVICE)
+@Path(AuthPath.PARTNER_MANAGEMENT)
 public interface IPartnerRest {
 
     /**
@@ -48,6 +50,7 @@ public interface IPartnerRest {
      */
     @PUT
     @Operation(summary = PartnerRestInformation.UPDATE_PARTNER_SUMMARY, description = PartnerRestInformation.UPDATE_PARTNER_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Path(BaseServicePath.ID)
@@ -67,6 +70,7 @@ public interface IPartnerRest {
     @PUT
     @Operation(summary = PartnerRestInformation.UPDATE_CURRENT_PARTNER_SUMMARY,
             description = PartnerRestInformation.UPDATE_CURRENT_PARTNER_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Path(AuthPath.CURRENT)
@@ -87,6 +91,7 @@ public interface IPartnerRest {
     @POST
     @Operation(summary = PartnerRestInformation.UPLOAD_PROFILE_PICTURE_SUMMARY,
             description = PartnerRestInformation.UPLOAD_PROFILE_PICTURE_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Consumes(value = { MediaType.MULTIPART_FORM_DATA })
     @Path(BaseServicePath.ID + AuthPath.PROFILE_PICTURE)
@@ -105,6 +110,7 @@ public interface IPartnerRest {
     @GET
     @Operation(summary = PartnerRestInformation.DOWNLOAD_PROFILE_PICTURE_SUMMARY,
             description = PartnerRestInformation.DOWNLOAD_PROFILE_PICTURE_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_OCTET_STREAM })
     @Path(BaseServicePath.ID + AuthPath.PROFILE_PICTURE)
     Response downloadProfilePicture(@Parameter(description = PartnerRestInformation.PARTNER_ID_PARAM_SUMMARY, required = true) @PathParam(
