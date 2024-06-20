@@ -9,6 +9,8 @@
 
     <public publicId="http://api.auth.evocelot.hu/COMMON/1.0/common"
             uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/COMMON/1.0/common.xsd"/>
+    <public publicId="http://api.auth.evocelot.hu/AUTH/1.0/rest/auth"
+            uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/AUTH/1.0/rest/auth.xsd"/>
     <public publicId="http://api.auth.evocelot.hu/PARTNER/1.0/rest/partner"
             uri="maven:hu.evocelot.auth:auth-api-schema:jar::!/xsd/hu/evocelot/auth/api/PARTNER/1.0/rest/partner.xsd"/>
     <public publicId="http://api.auth.evocelot.hu/SECURITYUSER/1.0/rest/security_user"

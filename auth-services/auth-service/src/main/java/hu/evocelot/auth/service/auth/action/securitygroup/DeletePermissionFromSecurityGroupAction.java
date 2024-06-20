@@ -11,6 +11,7 @@ import hu.evocelot.auth.api.common._1_0.common.EntityIdRequest;
 import hu.evocelot.auth.common.system.rest.action.BaseAction;
 import hu.evocelot.auth.model.Permission;
 import hu.evocelot.auth.model.SecurityGroup;
+import hu.evocelot.auth.service.auth.helper.RedisHelper;
 import hu.evocelot.auth.service.auth.service.PermissionService;
 import hu.evocelot.auth.service.auth.service.PermissionToSecurityGroupService;
 import hu.evocelot.auth.service.auth.service.SecurityGroupService;
@@ -35,6 +36,9 @@ public class DeletePermissionFromSecurityGroupAction extends BaseAction {
 
     @Inject
     private PermissionToSecurityGroupService permissionToSecurityGroupService;
+
+    @Inject
+    private RedisHelper redisHelper;
 
     @Inject
     private TransactionHelper transactionHelper;
@@ -66,6 +70,8 @@ public class DeletePermissionFromSecurityGroupAction extends BaseAction {
         Permission permission = permissionService.findById(permissionId, Permission.class);
 
         transactionHelper.executeWithTransaction(() -> permissionToSecurityGroupService.deleteByIds(securityGroup.getId(), permission.getId()));
+
+        redisHelper.endSecurityGroupSessions(securityGroup.getId());
 
         BaseResponse response = new BaseResponse();
 

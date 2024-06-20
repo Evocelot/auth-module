@@ -13,6 +13,9 @@ import hu.evocelot.auth.common.system.rest.rest.BaseRestService;
 import hu.evocelot.auth.service.auth.action.permission.GetPermissionAction;
 import hu.evocelot.auth.service.auth.action.permission.QueryPermissionAction;
 import hu.evocelot.auth.service.auth.action.permission.UpdatePermissionAction;
+import hu.evocelot.auth.service.auth.interceptor.Permission;
+import hu.evocelot.auth.service.auth.interceptor.PermissionNeeded;
+import hu.evocelot.auth.service.auth.interceptor.Secured;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 
 /**
@@ -34,11 +37,15 @@ public class PermissionRest extends BaseRestService implements IPermissionRest {
     private QueryPermissionAction queryPermissionAction;
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.GET_PERMISSION)
     public PermissionResponse getPermission(String permissionId) throws BaseException {
         return wrapPathParam1(getPermissionAction::getPermission, permissionId, "getPermission", "permissionId");
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.UPDATE_PERMISSION)
     public PermissionResponse updatePermission(String permissionId, PermissionRequest permissionRequest) throws BaseException {
         return wrapPathParam2(updatePermissionAction::updatePermission,
                 permissionId,
@@ -49,6 +56,8 @@ public class PermissionRest extends BaseRestService implements IPermissionRest {
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.QUERY_PERMISSION)
     public PermissionQueryResponse queryPermission(PermissionQueryRequest permissionQueryRequest) throws BaseException {
         return wrapPathParam1(queryPermissionAction::queryPermission, permissionQueryRequest, "queryPermission", "permissionQueryRequest");
     }

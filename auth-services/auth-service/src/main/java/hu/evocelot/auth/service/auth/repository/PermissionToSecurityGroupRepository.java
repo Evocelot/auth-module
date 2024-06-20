@@ -1,5 +1,7 @@
 package hu.evocelot.auth.service.auth.repository;
 
+import java.util.List;
+
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Modifying;
 import org.apache.deltaspike.data.api.Query;
@@ -42,4 +44,25 @@ public interface PermissionToSecurityGroupRepository extends EntityRepository<Pe
     @Query("DELETE FROM PermissionToSecurityGroup ptsg WHERE ptsg.securityGroup.id = :securityGroupId AND ptsg.permission.id = :permissionId")
     @Modifying
     int deleteByIds(@QueryParam("securityGroupId") String securityGroupId, @QueryParam("permissionId") String permissionId);
+
+    /**
+     * For getting the permission list for the security group based on the id. Fetches the permission.
+     *
+     * @param securityGroupId
+     *         - the id of the owner security group.
+     * @return - with the list of the {@link PermissionToSecurityGroup}.
+     */
+    @Query("SELECT ptsg FROM PermissionToSecurityGroup ptsg JOIN FETCH ptsg.permission WHERE ptsg.securityGroup.id = :securityGroupId")
+    List<PermissionToSecurityGroup> findBySecurityGroupIdFetchPermission(@QueryParam("securityGroupId") String securityGroupId);
+
+    /**
+     * Finds the security group ids by permission id.
+     *
+     * @param permissionId
+     *         - the id of the permission.
+     * @return - with the list of SecurityGroups id.
+     */
+    @Query("SELECT ptsg.securityGroup.id FROM PermissionToSecurityGroup ptsg WHERE ptsg.permission.id = :permissionId")
+    List<String> getSecurityGroupIdsByPermissionId(@QueryParam("permissionId") String permissionId);
+
 }

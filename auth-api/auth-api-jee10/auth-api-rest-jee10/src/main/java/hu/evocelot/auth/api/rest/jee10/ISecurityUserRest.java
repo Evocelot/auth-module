@@ -9,10 +9,12 @@ import jakarta.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import hu.evocelot.auth.api.common.path.AuthPath;
 import hu.evocelot.auth.api.common.restinformation.SecurityUserRestInformation;
+import hu.evocelot.auth.api.rest.jee10.constant.SecuritySchemeConstant;
 import hu.evocelot.auth.api.securityuser._1_0.rest.security_user.ChangeCurrentPasswordRequest;
 import hu.evocelot.auth.api.securityuser._1_0.rest.security_user.SecurityUserResponse;
 import hu.evocelot.auth.api.securityuser._1_0.rest.security_user.UpdateSecurityUserRequest;
@@ -28,7 +30,7 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
  * @since 0.10.0
  */
 @Tag(name = SecurityUserRestInformation.TAG, description = SecurityUserRestInformation.DESCRIPTION)
-@Path(AuthPath.SECURITY_USER_SERVICE)
+@Path(AuthPath.SECURITY_USER_MANAGEMENT)
 public interface ISecurityUserRest {
 
     /**
@@ -45,6 +47,7 @@ public interface ISecurityUserRest {
     @PUT
     @Operation(summary = SecurityUserRestInformation.UPDATE_SECURITY_USER_SUMMARY,
             description = SecurityUserRestInformation.UPDATE_SECURITY_USER_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Path(BaseServicePath.ID)
@@ -65,6 +68,7 @@ public interface ISecurityUserRest {
     @PUT
     @Operation(summary = SecurityUserRestInformation.UPDATE_CURRENT_SECURITY_USER_SUMMARY,
             description = SecurityUserRestInformation.UPDATE_CURRENT_SECURITY_USER_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Path(AuthPath.CURRENT)
@@ -83,6 +87,7 @@ public interface ISecurityUserRest {
     @PUT
     @Operation(summary = SecurityUserRestInformation.CHANGE_CURRENT_PASSWORD_SUMMARY,
             description = SecurityUserRestInformation.CHANGE_CURRENT_PASSWORD_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Path(AuthPath.CURRENT + AuthPath.CHANGE_PASSWORD)

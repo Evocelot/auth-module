@@ -18,7 +18,7 @@ public interface IHttpHeaderConstants {
     /**
      * Authentication session token.
      */
-    String HEADER_SESSION_TOKEN = "sessionToken";
+    String HEADER_SESSION_TOKEN = "accessToken";
 
     /**
      * Authentication refresh token.

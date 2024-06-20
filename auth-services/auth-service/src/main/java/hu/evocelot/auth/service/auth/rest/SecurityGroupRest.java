@@ -17,6 +17,9 @@ import hu.evocelot.auth.service.auth.action.securitygroup.DeleteSecurityGroupAct
 import hu.evocelot.auth.service.auth.action.securitygroup.GetSecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.QuerySecurityGroupAction;
 import hu.evocelot.auth.service.auth.action.securitygroup.UpdateSecurityGroupAction;
+import hu.evocelot.auth.service.auth.interceptor.Permission;
+import hu.evocelot.auth.service.auth.interceptor.PermissionNeeded;
+import hu.evocelot.auth.service.auth.interceptor.Secured;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 
@@ -51,11 +54,15 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
     private QuerySecurityGroupAction querySecurityGroupAction;
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.CREATE_SECURITY_GROUP)
     public SecurityGroupResponse createSecurityGroup(SecurityGroupRequest securityGroupRequest) throws BaseException {
         return wrapPathParam1(createSecurityGroupAction::createSecurityGroup, securityGroupRequest, "createSecurityGroup", "securityGroupRequest");
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.UPDATE_SECURITY_GROUP)
     public SecurityGroupResponse updateSecurityGroup(String securityGroupId, SecurityGroupRequest securityGroupRequest) throws BaseException {
         return wrapPathParam2(updateSecurityGroupAction::updateSecurityGroup,
                 securityGroupId,
@@ -66,16 +73,22 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.DELETE_SECURITY_GROUP)
     public BaseResponse deleteSecurityGroup(String securityGroupId) throws BaseException {
         return wrapPathParam1(deleteSecurityGroupAction::deleteSecurityGroup, securityGroupId, "deleteSecurityGroup", "securityGroupId");
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.GET_SECURITY_GROUP)
     public SecurityGroupResponse getSecurityGroup(String securityGroupId) throws BaseException {
         return wrapPathParam1(getSecurityGroupAction::getSecurityGroup, securityGroupId, "getSecurityGroup", "securityGroupId");
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.ADD_PERMISSION_TO_SECURITY_GROUP)
     public BaseResponse addPermissionToSecurityGroup(String securityGroupId, EntityIdRequest entityIdRequest) throws BaseException {
         return wrapPathParam2(addPermissionToSecurityGroupAction::addPermissionToSecurityGroup,
                 securityGroupId,
@@ -86,6 +99,8 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.REMOVE_PERMISSION_FROM_SECURITY_GROUP)
     public BaseResponse removePermissionFromSecurityGroup(String securityGroupId, EntityIdRequest entityIdRequest) throws BaseException {
         return wrapPathParam2(deletePermissionFromSecurityGroupAction::removePermissionFromSecurityGroup,
                 securityGroupId,
@@ -96,9 +111,10 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
     }
 
     @Override
+    @Secured
+    @PermissionNeeded(permission = Permission.QUERY_SECURITY_GROUP)
     public SecurityGroupQueryResponse querySecurityGroup(SecurityGroupQueryRequest securityGroupQueryRequest) throws BaseException {
-        return wrapPathParam1(
-                querySecurityGroupAction::querySecurityGroup,
+        return wrapPathParam1(querySecurityGroupAction::querySecurityGroup,
                 securityGroupQueryRequest,
                 "querySecurityGroup",
                 "securityGroupQueryRequest");

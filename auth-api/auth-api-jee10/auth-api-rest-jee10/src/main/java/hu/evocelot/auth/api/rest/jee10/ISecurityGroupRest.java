@@ -12,11 +12,13 @@ import jakarta.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import hu.evocelot.auth.api.common._1_0.common.EntityIdRequest;
 import hu.evocelot.auth.api.common.path.AuthPath;
 import hu.evocelot.auth.api.common.restinformation.SecurityGroupRestInformation;
+import hu.evocelot.auth.api.rest.jee10.constant.SecuritySchemeConstant;
 import hu.evocelot.auth.api.securitygroup._1_0.rest.security_group.SecurityGroupRequest;
 import hu.evocelot.auth.api.securitygroup._1_0.rest.security_group.SecurityGroupResponse;
 import hu.evocelot.auth.api.securitygroupquery._1_0.rest.security_group_query.SecurityGroupQueryRequest;
@@ -34,7 +36,7 @@ import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
  * @since 0.10.0
  */
 @Tag(name = SecurityGroupRestInformation.TAG, description = SecurityGroupRestInformation.DESCRIPTION)
-@Path(AuthPath.SECURITY_GROUP_SERVICE)
+@Path(AuthPath.SECURITY_GROUP_MANAGEMENT)
 public interface ISecurityGroupRest {
 
     /**
@@ -49,6 +51,7 @@ public interface ISecurityGroupRest {
     @POST
     @Operation(summary = SecurityGroupRestInformation.CREATE_SECURITY_GROUP_SUMMARY,
             description = SecurityGroupRestInformation.CREATE_SECURITY_GROUP_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     SecurityGroupResponse createSecurityGroup(@ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) SecurityGroupRequest securityGroupRequest)
@@ -68,6 +71,7 @@ public interface ISecurityGroupRest {
     @PUT
     @Operation(summary = SecurityGroupRestInformation.UPDATE_SECURITY_GROUP_SUMMARY,
             description = SecurityGroupRestInformation.UPDATE_SECURITY_GROUP_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.ID)
@@ -88,6 +92,7 @@ public interface ISecurityGroupRest {
     @DELETE
     @Operation(summary = SecurityGroupRestInformation.DELETE_SECURITY_GROUP_SUMMARY,
             description = SecurityGroupRestInformation.DELETE_SECURITY_GROUP_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.ID)
     BaseResponse deleteSecurityGroup(
@@ -106,6 +111,7 @@ public interface ISecurityGroupRest {
     @GET
     @Operation(summary = SecurityGroupRestInformation.GET_SECURITY_GROUP_SUMMARY,
             description = SecurityGroupRestInformation.GET_SECURITY_GROUP_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.ID)
     SecurityGroupResponse getSecurityGroup(
@@ -126,6 +132,7 @@ public interface ISecurityGroupRest {
     @POST
     @Operation(summary = SecurityGroupRestInformation.ADD_PERMISSION_TO_SECURITY_GROUP_SUMMARY,
             description = SecurityGroupRestInformation.ADD_PERMISSION_TO_SECURITY_GROUP_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.ID + AuthPath.ADD_PERMISSION)
@@ -148,6 +155,7 @@ public interface ISecurityGroupRest {
     @DELETE
     @Operation(summary = SecurityGroupRestInformation.DELETE_PERMISSION_FROM_SECURITY_GROUP_SUMMARY,
             description = SecurityGroupRestInformation.DELETE_PERMISSION_FROM_SECURITY_GROUP_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.ID + AuthPath.DELETE_PERMISSION)
@@ -168,6 +176,7 @@ public interface ISecurityGroupRest {
     @POST
     @Operation(summary = SecurityGroupRestInformation.QUERY_SECURITY_GROUP_SUMMARY,
             description = SecurityGroupRestInformation.QUERY_SECURITY_GROUP_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.QUERY)

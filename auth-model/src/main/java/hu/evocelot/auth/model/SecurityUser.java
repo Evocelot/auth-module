@@ -8,6 +8,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import hu.evocelot.auth.model.enums.SecurityUserStatus;
 import hu.icellmobilsoft.coffee.model.base.javatime.AbstractIdentifiedAuditEntity;
@@ -25,25 +27,31 @@ public class SecurityUser extends AbstractIdentifiedAuditEntity {
     /**
      * The email address of the security user.
      */
+    @Size(max = 320)
+    @NotNull
     @Column(name = "email_address", length = 320, nullable = false, unique = true)
     private String emailAddress;
 
     /**
      * The hashed password of the security user. The X__ID used as the salt.
      */
+    @Size(max = 255)
+    @NotNull
     @Column(name = "password_hash", length = 255, nullable = false)
     private String passwordHash;
 
     /**
      * The status of the security user.
      */
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status_id", length = 30, nullable = false)
+    @Column(name = "status_id", nullable = false)
     private SecurityUserStatus status;
 
     /**
      * The security group of the security user.
      */
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "security_group_id")
     private SecurityGroup securityGroup;

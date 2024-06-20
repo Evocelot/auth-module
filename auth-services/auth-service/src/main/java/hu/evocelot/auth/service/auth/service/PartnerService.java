@@ -34,4 +34,15 @@ public class PartnerService extends BaseService<Partner> {
                 "findBySecurityUserIdFetchSecurityUser",
                 "securityUserId");
     }
+
+    /**
+     * Finds the {@link Partner} entity based on the security user id.
+     *
+     * @param securityUserId
+     *         - the id of the {@link SecurityUser}.
+     * @return - with the {@link Partner}.
+     */
+    public Partner findBySecurityUserId(String securityUserId) throws BaseException {
+        return wrapValidated(partnerRepository::findBySecurityUserId, securityUserId, "findBySecurityUserId", "securityUserId");
+    }
 }

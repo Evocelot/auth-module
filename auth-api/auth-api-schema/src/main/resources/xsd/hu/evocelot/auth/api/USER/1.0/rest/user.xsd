@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://api.auth.evocelot.hu/USER/1.0/rest/user"
+            xmlns:coffeeCommon="http://common.dto.coffee.icellmobilsoft.hu/common"
             xmlns:coffeeCommonService="http://common.dto.coffee.icellmobilsoft.hu/commonservice"
             xmlns:common="http://api.auth.evocelot.hu/COMMON/1.0/common"
             xmlns:partner="http://api.auth.evocelot.hu/PARTNER/1.0/rest/partner"
@@ -7,6 +8,7 @@
             targetNamespace="http://api.auth.evocelot.hu/USER/1.0/rest/user" elementFormDefault="qualified"
             attributeFormDefault="unqualified">
 
+    <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/common"/>
     <xsd:import namespace="http://common.dto.coffee.icellmobilsoft.hu/commonservice"/>
     <xsd:import namespace="http://api.auth.evocelot.hu/COMMON/1.0/common"/>
     <xsd:import namespace="http://api.auth.evocelot.hu/PARTNER/1.0/rest/partner"/>
@@ -27,6 +29,11 @@
             <xsd:element name="partner" type="partner:PartnerEntityType">
                 <xsd:annotation>
                     <xsd:documentation>The details of the partner.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="securityGroupName" type="coffeeCommon:SimpleText100NotBlankType">
+                <xsd:annotation>
+                    <xsd:documentation>The name of the security group.</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
         </xsd:sequence>

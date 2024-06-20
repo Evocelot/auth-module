@@ -1,6 +1,7 @@
 package hu.evocelot.auth.service.auth.action.permission;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -16,7 +17,9 @@ import hu.evocelot.auth.dto.exception.enums.FaultType;
 import hu.evocelot.auth.model.Permission;
 import hu.evocelot.auth.service.auth.converter.permission.PermissionEntityCoreTypeConverter;
 import hu.evocelot.auth.service.auth.converter.permission.PermissionEntityTypeConverter;
+import hu.evocelot.auth.service.auth.helper.RedisHelper;
 import hu.evocelot.auth.service.auth.service.PermissionService;
+import hu.evocelot.auth.service.auth.service.PermissionToSecurityGroupService;
 import hu.icellmobilsoft.coffee.dto.exception.InvalidParameterException;
 import hu.icellmobilsoft.coffee.jpa.helper.TransactionHelper;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
@@ -39,6 +42,12 @@ public class UpdatePermissionAction extends BaseAction {
 
     @Inject
     private PermissionService permissionService;
+
+    @Inject
+    private PermissionToSecurityGroupService permissionToSecurityGroupService;
+
+    @Inject
+    private RedisHelper redisHelper;
 
     @Inject
     private TransactionHelper transactionHelper;
@@ -79,6 +88,11 @@ public class UpdatePermissionAction extends BaseAction {
 
         Permission finalEntity = permission;
         permission = transactionHelper.executeWithTransaction(() -> permissionService.save(finalEntity));
+
+        List<String> securityGroupIds = permissionToSecurityGroupService.getSecurityGroupIdsByPermissionId(permission.getId());
+        for (String securityGroupId : securityGroupIds) {
+            redisHelper.endSecurityGroupSessions(securityGroupId);
+        }
 
         PermissionResponse response = new PermissionResponse();
         response.setPermission(permissionEntityTypeConverter.convert(permission));

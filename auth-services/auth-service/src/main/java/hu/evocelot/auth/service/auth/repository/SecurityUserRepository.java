@@ -23,7 +23,7 @@ public interface SecurityUserRepository extends EntityRepository<SecurityUser, S
      *         - the email address.
      * @return - with true or false.
      */
-    @Query("select case when (count(su) > 0) then true else false end" + " from SecurityUser su where su.emailAddress = :emailAddress")
+    @Query("SELECT CASE WHEN (COUNT(su) > 0) THEN true ELSE false END" + " FROM SecurityUser su WHERE su.emailAddress = :emailAddress")
     boolean emailAddressAlreadyInUse(@QueryParam("emailAddress") String emailAddress);
 
     /**
@@ -33,6 +33,15 @@ public interface SecurityUserRepository extends EntityRepository<SecurityUser, S
      *         - the id of the security group to find.
      * @return - with true, if there is at least one security user with the specified security group.
      */
-    @Query("select case when (count(su) > 0) then true else false end" + " from SecurityUser su where su.securityGroup.id = :securityGroupId")
+    @Query("SELECT CASE WHEN (COUNT(su) > 0) THEN true ELSE false END" + " FROM SecurityUser su WHERE su.securityGroup.id = :securityGroupId")
     boolean securityGroupIsUnderUse(@QueryParam("securityGroupId") String securityGroupId);
+
+    /**
+     * Finds the {@link SecurityUser} based on the email address.
+     *
+     * @param emailAddress
+     *         - the email address.
+     */
+    @Query("SELECT su FROM SecurityUser su WHERE su.emailAddress = :emailAddress")
+    SecurityUser findByEmailAddress(@QueryParam("emailAddress") String emailAddress);
 }

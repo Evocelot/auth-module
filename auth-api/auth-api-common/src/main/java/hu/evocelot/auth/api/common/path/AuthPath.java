@@ -21,27 +21,37 @@ public class AuthPath extends BaseServicePath {
     /**
      * The {@value } path.
      */
-    public static final String SECURITY_USER_SERVICE = BASE_PATH + "/security-user";
+    public static final String SECURITY_USER_MANAGEMENT = BASE_PATH + "/security-user";
 
     /**
      * The {@value } path.
      */
-    public static final String PARTNER_SERVICE = BASE_PATH + "/partner";
+    public static final String PARTNER_MANAGEMENT = BASE_PATH + "/partner";
 
     /**
      * The {@value } path.
      */
-    public static final String USER_SERVICE = BASE_PATH + "/user";
+    public static final String USER_MANAGEMENT = BASE_PATH + "/user";
 
     /**
      * The {@value } path.
      */
-    public static final String SECURITY_GROUP_SERVICE = BASE_PATH + "/security-group";
+    public static final String SECURITY_GROUP_MANAGEMENT = BASE_PATH + "/security-group";
 
     /**
      * The {@value } path.
      */
-    public static final String PERMISSION_SERVICE = BASE_PATH + "/permission";
+    public static final String PERMISSION_MANAGEMENT = BASE_PATH + "/permission";
+
+    /**
+     * The {@value } path.
+     */
+    public static final String AUTH_MANAGEMENT = BASE_PATH + "/auth";
+
+    /**
+     * The {@value } path.
+     */
+    public static final String TOKEN_VALUE_PARAM = "token-value";
 
     /**
      * The {@value } path.
@@ -67,4 +77,24 @@ public class AuthPath extends BaseServicePath {
      * The {@value } path.
      */
     public static final String DELETE_PERMISSION = "/remove-permission";
+
+    /**
+     * The {@value } path.
+     */
+    public static final String LOGIN = "/login";
+
+    /**
+     * The {@value } path.
+     */
+    public static final String LOGOUT = "/logout";
+
+    /**
+     * The {@value } path.
+     */
+    public static final String REFRESH_ACCESS = "/get-new-access-token";
+
+    /**
+     * The {@value } path.
+     */
+    public static final String TOKEN_VALUE = "/{" + TOKEN_VALUE_PARAM + "}";
 }

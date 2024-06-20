@@ -1,5 +1,7 @@
 package hu.evocelot.auth.service.auth.service;
 
+import java.util.List;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -57,6 +59,38 @@ public class PermissionToSecurityGroupService extends BaseService<PermissionToSe
                 permissionId,
                 "deleteByIds",
                 "securityGroupId",
+                "permissionId");
+    }
+
+    /**
+     * For getting the permission list for the security group based on the id. Fetches the permission.
+     *
+     * @param securityGroupId
+     *         - the id of the owner security group.
+     * @return - with the list of the {@link PermissionToSecurityGroup}.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
+    public List<PermissionToSecurityGroup> findBySecurityGroupIdFetchPermission(String securityGroupId) throws BaseException {
+        return wrapValidated(permissionToSecurityGroupRepository::findBySecurityGroupIdFetchPermission,
+                securityGroupId,
+                "findBySecurityGroupIdFetchPermission",
+                "securityGroupId");
+    }
+
+    /**
+     * Finds the security group ids by permission id.
+     *
+     * @param permissionId
+     *         - the id of the permission.
+     * @return - with the list of SecurityGroups id.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
+    public List<String> getSecurityGroupIdsByPermissionId(String permissionId) throws BaseException {
+        return wrapValidated(permissionToSecurityGroupRepository::getSecurityGroupIdsByPermissionId,
+                permissionId,
+                "getSecurityGroupIdsByPermissionId",
                 "permissionId");
     }
 }
