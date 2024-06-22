@@ -46,7 +46,12 @@ public class RedisHelper {
      */
     public void storeLoginDetails(Token accessToken, CurrentUserDetailsType currentUserDetailsType) throws BaseException {
         String accessTokenValue = accessToken.getToken();
-        redisManager.runWithConnection(Jedis::setex, "setex", accessTokenValue, authServiceConfiguration.getAccessMaxTtl() * 60 , JsonUtil.toJson(currentUserDetailsType));
+        redisManager.runWithConnection(
+                Jedis::setex,
+                "setex",
+                accessTokenValue,
+                authServiceConfiguration.getAccessMaxTtl() * 60,
+                JsonUtil.toJson(currentUserDetailsType));
 
         String securityUserId = currentUserDetailsType.getUser().getSecurityUser().getSecurityUserId();
         redisManager.runWithConnection(Jedis::sadd, "sadd", securityUserId, accessTokenValue);
@@ -106,10 +111,16 @@ public class RedisHelper {
         redisManager.runWithConnection(Jedis::del, "del", key);
     }
 
-    public void deleteValueFromKey(String key, String value) throws BaseException {
-        redisManager.runWithConnection(Jedis::hdel, "hdel", key, value);
-    }
-
+    /**
+     * Deletes smember from the set.
+     *
+     * @param key
+     *         - the owner key.
+     * @param member
+     *         - the member to delete.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
     public void deleteSmember(String key, String member) throws BaseException {
         redisManager.runWithConnection(Jedis::srem, "srem", key, member);
     }

@@ -26,6 +26,7 @@ public class SecurityUserService extends BaseService<SecurityUser> {
      * @param emailAddress
      *         - the email address.
      * @return - with true or false.
+     * @throws BaseException - when an error occurs.
      */
     public boolean emailAddressAlreadyInUse(String emailAddress) throws BaseException {
         return wrapValidated(securityUserRepository::emailAddressAlreadyInUse, emailAddress, "emailAddressAlreadyInUse", "emailAddress");
@@ -50,6 +51,7 @@ public class SecurityUserService extends BaseService<SecurityUser> {
      * @param emailAddress
      *         - the email address.
      * @return - with the {@link SecurityUser}.
+     * @throws BaseException - when an error occurs.
      */
     public SecurityUser findByEmailAddress(String emailAddress) throws BaseException {
         return wrapValidated(securityUserRepository::findByEmailAddress, emailAddress, "findByEmailAddress", "emailAddress");

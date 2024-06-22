@@ -45,6 +45,16 @@ public class SecuredInterceptor {
     @Inject
     private TokenService tokenService;
 
+    /**
+     * Reads the access token and validate the user based on the logged information. Checks that the user has the required permission too, to use the
+     * called function.
+     *
+     * @param invocationContext
+     *         - the invocation context.
+     * @return - with the Object.
+     * @throws Exception
+     *         - when an error occurs.
+     */
     @AroundInvoke
     public Object securedInvocation(InvocationContext invocationContext) throws Exception {
         // Get the access token from the header.
