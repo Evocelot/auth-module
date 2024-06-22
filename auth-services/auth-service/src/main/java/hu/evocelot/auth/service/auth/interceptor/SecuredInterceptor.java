@@ -11,6 +11,8 @@ import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
 
+import org.apache.commons.lang3.StringUtils;
+
 import hu.evocelot.auth.api.auth._1_0.rest.auth.CurrentUserDetailsType;
 import hu.evocelot.auth.api.permission._1_0.rest.permission.PermissionEntityType;
 import hu.evocelot.auth.common.rest.header.ProjectHeader;
@@ -47,7 +49,7 @@ public class SecuredInterceptor {
     public Object securedInvocation(InvocationContext invocationContext) throws Exception {
         // Get the access token from the header.
         String accessToken = projectHeader.getSessionToken();
-        if (Objects.isNull(accessToken)) {
+        if (StringUtils.isBlank(accessToken)) {
             throw new BusinessException(FaultType.ACCESS_TOKEN_NOT_PRESENT, "The access token not present in the header.");
         }
 

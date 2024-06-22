@@ -21,16 +21,12 @@ import hu.evocelot.auth.model.Token;
 import hu.evocelot.auth.model.enums.SecurityUserStatus;
 import hu.evocelot.auth.model.enums.TokenType;
 import hu.evocelot.auth.service.auth.configuration.AuthServiceConfiguration;
-import hu.evocelot.auth.service.auth.converter.user.UserTypeConverter;
-import hu.evocelot.auth.service.auth.converter.partner.PartnerEntityTypeConverter;
-import hu.evocelot.auth.service.auth.converter.permission.PermissionEntityTypeConverter;
-import hu.evocelot.auth.service.auth.converter.securityuser.SecurityUserEntityTypeConverter;
 import hu.evocelot.auth.service.auth.converter.token.TokenTypeConverter;
+import hu.evocelot.auth.service.auth.converter.user.UserTypeConverter;
 import hu.evocelot.auth.service.auth.helper.PasswordHelper;
 import hu.evocelot.auth.service.auth.helper.RedisHelper;
 import hu.evocelot.auth.service.auth.helper.SecurityGroupHelper;
 import hu.evocelot.auth.service.auth.service.PartnerService;
-import hu.evocelot.auth.service.auth.service.PermissionToSecurityGroupService;
 import hu.evocelot.auth.service.auth.service.SecurityGroupService;
 import hu.evocelot.auth.service.auth.service.SecurityUserService;
 import hu.evocelot.auth.service.auth.service.TokenService;
@@ -48,15 +44,6 @@ import hu.icellmobilsoft.coffee.tool.utils.string.RandomUtil;
  */
 @ApplicationScoped
 public class LoginAction extends BaseAction {
-
-    @Inject
-    private SecurityUserEntityTypeConverter securityUserEntityTypeConverter;
-
-    @Inject
-    private PartnerEntityTypeConverter partnerEntityTypeConverter;
-
-    @Inject
-    private PermissionEntityTypeConverter permissionEntityTypeConverter;
 
     @Inject
     private TokenTypeConverter tokenTypeConverter;
@@ -90,9 +77,6 @@ public class LoginAction extends BaseAction {
 
     @Inject
     private SecurityGroupService securityGroupService;
-
-    @Inject
-    private PermissionToSecurityGroupService permissionToSecurityGroupService;
 
     /**
      * For logging in. Creates a refresh and access token and stores in the redis and db too.
@@ -173,5 +157,4 @@ public class LoginAction extends BaseAction {
 
         return response;
     }
-
 }

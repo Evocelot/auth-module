@@ -1,0 +1,11 @@
+services:
+  evocelot-auth-redis-ui:
+    environment:
+      myredis: evocelot-auth-redis
+    container_name: evocelot-auth-redis-ui
+    image: marian/rebrow:latest
+    ports:
+      - "5001:5001"
+networks:
+  default:
+    name: evocelot-network

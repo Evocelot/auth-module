@@ -46,8 +46,7 @@ public class RedisHelper {
      */
     public void storeLoginDetails(Token accessToken, CurrentUserDetailsType currentUserDetailsType) throws BaseException {
         String accessTokenValue = accessToken.getToken();
-        redisManager.runWithConnection(Jedis::set, "set", accessTokenValue, JsonUtil.toJson(currentUserDetailsType));
-        redisManager.runWithConnection(Jedis::expire, "expire", accessTokenValue, authServiceConfiguration.getAccessMaxTtl() * 60);
+        redisManager.runWithConnection(Jedis::setex, "setex", accessTokenValue, authServiceConfiguration.getAccessMaxTtl() * 60 , JsonUtil.toJson(currentUserDetailsType));
 
         String securityUserId = currentUserDetailsType.getUser().getSecurityUser().getSecurityUserId();
         redisManager.runWithConnection(Jedis::sadd, "sadd", securityUserId, accessTokenValue);
@@ -72,6 +71,7 @@ public class RedisHelper {
         if (optionalAccessTokenValues.isPresent()) {
             Set<String> accessTokenValues = optionalAccessTokenValues.get();
             for (String accessTokenValue : accessTokenValues) {
+                deleteSmember(securityUserId, accessTokenValue);
                 deleteKey(accessTokenValue);
             }
         }
@@ -104,6 +104,14 @@ public class RedisHelper {
      */
     public void deleteKey(String key) throws BaseException {
         redisManager.runWithConnection(Jedis::del, "del", key);
+    }
+
+    public void deleteValueFromKey(String key, String value) throws BaseException {
+        redisManager.runWithConnection(Jedis::hdel, "hdel", key, value);
+    }
+
+    public void deleteSmember(String key, String member) throws BaseException {
+        redisManager.runWithConnection(Jedis::srem, "srem", key, member);
     }
 
     /**

@@ -1,6 +1,7 @@
 package hu.evocelot.auth.api.rest.jee10;
 
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -16,7 +17,10 @@ import hu.evocelot.auth.api.auth._1_0.rest.auth.LoginRequest;
 import hu.evocelot.auth.api.auth._1_0.rest.auth.LoginResponse;
 import hu.evocelot.auth.api.common.path.AuthPath;
 import hu.evocelot.auth.api.common.restinformation.AuthRestInformation;
+import hu.evocelot.auth.api.common.restinformation.SecurityUserRestInformation;
+import hu.evocelot.auth.api.common.restinformation.UserRestInformation;
 import hu.evocelot.auth.api.rest.jee10.constant.SecuritySchemeConstant;
+import hu.evocelot.auth.api.user._1_0.rest.user.UserResponse;
 import hu.evocelot.auth.dto.constant.XsdConstants;
 import hu.icellmobilsoft.coffee.cdi.annotation.xml.ValidateXML;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;

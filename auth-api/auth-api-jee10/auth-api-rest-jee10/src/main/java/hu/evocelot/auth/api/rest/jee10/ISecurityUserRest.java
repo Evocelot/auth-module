@@ -20,6 +20,7 @@ import hu.evocelot.auth.api.securityuser._1_0.rest.security_user.SecurityUserRes
 import hu.evocelot.auth.api.securityuser._1_0.rest.security_user.UpdateSecurityUserRequest;
 import hu.evocelot.auth.dto.constant.XsdConstants;
 import hu.icellmobilsoft.coffee.cdi.annotation.xml.ValidateXML;
+import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
 import hu.icellmobilsoft.coffee.dto.url.BaseServicePath;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 
@@ -80,7 +81,7 @@ public interface ISecurityUserRest {
      *
      * @param changeCurrentPasswordRequest
      *         - the request that contains the actual and the new password hash.
-     * @return - with {@link SecurityUserResponse}.
+     * @return - with {@link BaseResponse}.
      * @throws BaseException
      *         - when an error occurs.
      */
@@ -91,6 +92,6 @@ public interface ISecurityUserRest {
     @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
     @Path(AuthPath.CURRENT + AuthPath.CHANGE_PASSWORD)
-    SecurityUserResponse changeCurrentPassword(
-            @ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) ChangeCurrentPasswordRequest changeCurrentPasswordRequest) throws BaseException;
+    BaseResponse changeCurrentPassword(@ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) ChangeCurrentPasswordRequest changeCurrentPasswordRequest)
+            throws BaseException;
 }

@@ -56,4 +56,14 @@ public class UserRestInformation {
      * {@value}.
      */
     public static final String QUERY_USER_DESCRIPTION = "Endpoint for listing users with filtering, sorting and paging option.";
+
+    /**
+     * {@value}.
+     */
+    public static final String GET_CURRENT_USER_SUMMARY = "Get current (logged) user";
+
+    /**
+     * {@value}.
+     */
+    public static final String GET_CURRENT_USER_DESCRIPTION = "Endpoint for getting the current (logged) user based on the access token.";
 }

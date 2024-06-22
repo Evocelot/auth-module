@@ -78,25 +78,6 @@
         </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="ResetSecurityUserPasswordRequestType">
-        <xsd:complexContent>
-            <xsd:extension base="coffeeCommonService:BaseRequestType">
-                <xsd:sequence>
-                    <xsd:element name="resetPasswordToken" type="coffeeCommon:SimpleText100NotBlankType">
-                        <xsd:annotation>
-                            <xsd:documentation>The reset password token to update password.</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="newPasswordHash" type="common:PasswordType">
-                        <xsd:annotation>
-                            <xsd:documentation>The updated hash of the password.</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                </xsd:sequence>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
     <xsd:complexType name="ChangeCurrentPasswordRequestType">
         <xsd:complexContent>
             <xsd:extension base="coffeeCommonService:BaseRequestType">
@@ -138,17 +119,6 @@
         <xsd:complexType>
             <xsd:complexContent>
                 <xsd:extension base="UpdateSecurityUserRequestType"/>
-            </xsd:complexContent>
-        </xsd:complexType>
-    </xsd:element>
-
-    <xsd:element name="ResetSecurityUserPasswordRequest">
-        <xsd:annotation>
-            <xsd:documentation>Request DTO for reset security user password.</xsd:documentation>
-        </xsd:annotation>
-        <xsd:complexType>
-            <xsd:complexContent>
-                <xsd:extension base="ResetSecurityUserPasswordRequestType"/>
             </xsd:complexContent>
         </xsd:complexType>
     </xsd:element>
