@@ -20,8 +20,8 @@ import hu.evocelot.auth.model.SecurityUser;
 import hu.evocelot.auth.model.Token;
 import hu.evocelot.auth.model.enums.TokenType;
 import hu.evocelot.auth.service.auth.configuration.AuthServiceConfiguration;
-import hu.evocelot.auth.service.auth.converter.user.UserTypeConverter;
 import hu.evocelot.auth.service.auth.converter.token.TokenTypeConverter;
+import hu.evocelot.auth.service.auth.converter.user.UserTypeConverter;
 import hu.evocelot.auth.service.auth.helper.RedisHelper;
 import hu.evocelot.auth.service.auth.helper.SecurityGroupHelper;
 import hu.evocelot.auth.service.auth.service.PartnerService;
@@ -93,17 +93,23 @@ public class GetNewAccessTokenAction extends BaseAction {
                     MessageFormat.format("The refresh token with value [{0}] is expired!", refreshToken));
         }
 
+        SecurityUser securityUser = securityUserService.findById(refreshTokenEntity.getSecurityUser().getId(), SecurityUser.class);
+        SecurityGroup securityGroup = securityGroupService.findById(securityUser.getSecurityGroup().getId(), SecurityGroup.class);
+
         Optional<Set<String>> optionalAccessTokenValues = redisHelper.getSMembers(refreshTokenEntity.getSecurityUser().getId());
         if (optionalAccessTokenValues.isPresent()) {
             Set<String> accessTokenValues = optionalAccessTokenValues.get();
             for (String accessTokenValue : accessTokenValues) {
-                redisHelper.deleteKey(accessTokenValue);
-                // TODO: Set expiration time in db too.
+                try {
+                    // TODO: Set expiration time in db too.
+                    redisHelper.deleteSmember(securityUser.getId(), accessTokenValue);
+                    redisHelper.deleteKey(accessTokenValue);
+                } catch (Exception e) {
+                    System.out.println(e);
+                    // Nothing to do this time.
+                }
             }
         }
-
-        SecurityUser securityUser = securityUserService.findById(refreshTokenEntity.getSecurityUser().getId(), SecurityUser.class);
-        SecurityGroup securityGroup = securityGroupService.findById(securityUser.getSecurityGroup().getId(), SecurityGroup.class);
 
         Token newAccessToken = new Token();
         newAccessToken.setRelatedToken(refreshTokenEntity);

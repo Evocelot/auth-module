@@ -121,4 +121,9 @@ public enum FaultType {
      * When the token expired.
      */
     TOKEN_EXPIRED,
+
+    /**
+     * When the credentials are invalid.
+     */
+    INVALID_CREDENTIALS,
 }

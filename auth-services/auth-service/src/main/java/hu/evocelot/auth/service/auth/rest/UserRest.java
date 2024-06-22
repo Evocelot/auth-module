@@ -3,6 +3,7 @@ package hu.evocelot.auth.service.auth.rest;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import hu.evocelot.auth.api.auth._1_0.rest.auth.LoginResponse;
 import hu.evocelot.auth.api.rest.jee10.IUserRest;
 import hu.evocelot.auth.api.user._1_0.rest.user.CreateUserRequest;
 import hu.evocelot.auth.api.user._1_0.rest.user.UserResponse;
@@ -11,6 +12,7 @@ import hu.evocelot.auth.api.userquery._1_0.rest.user_query.UserQueryResponse;
 import hu.evocelot.auth.common.system.rest.rest.BaseRestService;
 import hu.evocelot.auth.service.auth.action.user.CreateUserAction;
 import hu.evocelot.auth.service.auth.action.user.DeleteUserAction;
+import hu.evocelot.auth.service.auth.action.user.GetCurrentUserAction;
 import hu.evocelot.auth.service.auth.action.user.GetUserAction;
 import hu.evocelot.auth.service.auth.action.user.QueryUserAction;
 import hu.evocelot.auth.service.auth.interceptor.Permission;
@@ -40,6 +42,9 @@ public class UserRest extends BaseRestService implements IUserRest {
     @Inject
     private QueryUserAction queryUserAction;
 
+    @Inject
+    private GetCurrentUserAction getCurrentUserAction;
+
     @Override
     @Secured
     @PermissionNeeded(permission = Permission.CREATE_USER)
@@ -66,5 +71,11 @@ public class UserRest extends BaseRestService implements IUserRest {
     @PermissionNeeded(permission = Permission.QUERY_USER)
     public UserQueryResponse queryUser(UserQueryRequest userQueryRequest) throws BaseException {
         return wrapPathParam1(queryUserAction::queryUser, userQueryRequest, "queryUser", "userQueryRequest");
+    }
+
+    @Override
+    @Secured
+    public LoginResponse getCurrentUser() throws BaseException {
+        return wrapNoParam(getCurrentUserAction::getCurrentUser, "getCurrentUser");
     }
 }

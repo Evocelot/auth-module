@@ -54,7 +54,11 @@ public class DeleteUserAction extends BaseAction {
         securityUserService.delete(partner.getSecurityUser());
 
         // TODO: expire the sessions in the db too.
-        redisHelper.endUserSessions(partner.getSecurityUser().getId());
+        try {
+            redisHelper.endUserSessions(partner.getSecurityUser().getId());
+        }catch (Exception e) {
+            // ...
+        }
 
         BaseResponse response = new BaseResponse();
         handleSuccessResultType(response);

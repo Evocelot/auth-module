@@ -119,6 +119,25 @@ public interface ISecurityGroupRest {
                     required = true) String securityGroupId) throws BaseException;
 
     /**
+     * HTTP POST method for listing security groups.
+     *
+     * @param securityGroupQueryRequest
+     *         - the request that contains information about the filtering, sorting and paging details.
+     * @return - with {@link SecurityGroupResponse} that contains the relevant security groups.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
+    @POST
+    @Operation(summary = SecurityGroupRestInformation.QUERY_SECURITY_GROUP_SUMMARY,
+            description = SecurityGroupRestInformation.QUERY_SECURITY_GROUP_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
+    @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
+    @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
+    @Path(BaseServicePath.QUERY)
+    SecurityGroupQueryResponse querySecurityGroup(
+            @ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) SecurityGroupQueryRequest securityGroupQueryRequest) throws BaseException;
+
+    /**
      * HTTP POST method for adding permission to the security group.
      *
      * @param securityGroupId
@@ -163,23 +182,4 @@ public interface ISecurityGroupRest {
             @PathParam(BaseServicePath.PARAM_ID) @Parameter(description = SecurityGroupRestInformation.SECURITY_GROUP_ID_PARAM_SUMMARY,
                     required = true) String securityGroupId, @ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) EntityIdRequest entityIdRequest)
             throws BaseException;
-
-    /**
-     * HTTP POST method for listing security groups.
-     *
-     * @param securityGroupQueryRequest
-     *         - the request that contains information about the filtering, sorting and paging details.
-     * @return - with {@link SecurityGroupResponse} that contains the relevant security groups.
-     * @throws BaseException
-     *         - when an error occurs.
-     */
-    @POST
-    @Operation(summary = SecurityGroupRestInformation.QUERY_SECURITY_GROUP_SUMMARY,
-            description = SecurityGroupRestInformation.QUERY_SECURITY_GROUP_DESCRIPTION)
-    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
-    @Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
-    @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
-    @Path(BaseServicePath.QUERY)
-    SecurityGroupQueryResponse querySecurityGroup(
-            @ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) SecurityGroupQueryRequest securityGroupQueryRequest) throws BaseException;
 }

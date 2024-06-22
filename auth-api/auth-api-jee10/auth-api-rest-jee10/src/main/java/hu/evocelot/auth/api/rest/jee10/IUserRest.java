@@ -14,6 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import hu.evocelot.auth.api.auth._1_0.rest.auth.LoginResponse;
 import hu.evocelot.auth.api.common.path.AuthPath;
 import hu.evocelot.auth.api.common.restinformation.SecurityUserRestInformation;
 import hu.evocelot.auth.api.common.restinformation.UserRestInformation;
@@ -104,4 +105,18 @@ public interface IUserRest {
     @Consumes(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     @Path(BaseServicePath.QUERY)
     UserQueryResponse queryUser(@ValidateXML(xsdPath = XsdConstants.SUPER_XSD_PATH) UserQueryRequest userQueryRequest) throws BaseException;
+
+    /**
+     * HTTP GET method for getting the current user based on the access token.
+     *
+     * @return - with {@link LoginResponse} that contains information about the current user.
+     * @throws BaseException
+     *         - when an error occurs.
+     */
+    @GET
+    @Operation(summary = UserRestInformation.GET_CURRENT_USER_SUMMARY, description = UserRestInformation.GET_CURRENT_USER_DESCRIPTION)
+    @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)
+    @Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.APPLICATION_XML })
+    @Path(AuthPath.CURRENT)
+    LoginResponse getCurrentUser() throws BaseException;
 }

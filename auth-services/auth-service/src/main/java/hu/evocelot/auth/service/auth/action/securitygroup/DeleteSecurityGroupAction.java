@@ -16,7 +16,6 @@ import hu.evocelot.auth.service.auth.service.SecurityGroupService;
 import hu.evocelot.auth.service.auth.service.SecurityUserService;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
 import hu.icellmobilsoft.coffee.dto.exception.InvalidParameterException;
-import hu.icellmobilsoft.coffee.jpa.helper.TransactionHelper;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 import hu.icellmobilsoft.coffee.se.api.exception.BusinessException;
 
@@ -37,9 +36,6 @@ public class DeleteSecurityGroupAction extends BaseAction {
 
     @Inject
     private RedisHelper redisHelper;
-
-    @Inject
-    private TransactionHelper transactionHelper;
 
     /**
      * For deleting security groups.
