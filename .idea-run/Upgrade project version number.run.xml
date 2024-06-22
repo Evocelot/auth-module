@@ -11,7 +11,7 @@
           <option name="goals">
             <list>
               <option value="versions:set" />
-              <option value="-DnewVersion=0.10.0-SNAPSHOT" />
+              <option value="-DnewVersion=0.9.0" />
             </list>
           </option>
           <option name="pomFileName" />
