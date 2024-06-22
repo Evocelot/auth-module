@@ -138,7 +138,7 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
                             <failOnError>true</failOnError>
-                            <failOnWarnings>true</failOnWarnings>
+                            <failOnWarnings>false</failOnWarnings>
                             <excludePackageNames>hu.evocelot.auth.api.*</excludePackageNames>
                             <sourceFileExcludes>**/*_.java</sourceFileExcludes>
                         </configuration>

@@ -33,6 +33,8 @@ public class UserTypeConverter {
      *         - the security user.
      * @param partner
      *         - the partner.
+     * @param securityGroup
+     *         - the security group.
      * @return - with {@link UserType}.
      * @throws BaseException
      *         - when an error occurs.

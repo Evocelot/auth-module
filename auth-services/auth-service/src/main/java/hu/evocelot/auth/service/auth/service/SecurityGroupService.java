@@ -26,6 +26,8 @@ public class SecurityGroupService extends BaseService<SecurityGroup> {
      * @param securityGroupName
      *         - the name of the security group.
      * @return - true if there is at least one security group with the given name.
+     * @throws BaseException
+     *         - when an error occurs.
      */
     public boolean nameAlreadyInUse(String securityGroupName) throws BaseException {
         return wrapValidated(securityGroupRepository::nameAlreadyInUse, securityGroupName, "nameAlreadyInUse", "securityGroupName");

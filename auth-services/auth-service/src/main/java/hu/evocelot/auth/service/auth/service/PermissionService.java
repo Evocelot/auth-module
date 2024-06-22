@@ -26,6 +26,8 @@ public class PermissionService extends BaseService<Permission> {
      * @param permissionName
      *         - the name of the permission.
      * @return - true if there is at least one permission with the given name.
+     * @throws BaseException
+     *         - when an error occurs.
      */
     public boolean nameAlreadyInUse(String permissionName) throws BaseException {
         return wrapValidated(permissionRepository::nameAlreadyInUse, permissionName, "nameAlreadyInUse", "permissionName");

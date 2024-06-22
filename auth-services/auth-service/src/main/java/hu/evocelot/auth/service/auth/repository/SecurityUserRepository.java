@@ -41,6 +41,7 @@ public interface SecurityUserRepository extends EntityRepository<SecurityUser, S
      *
      * @param emailAddress
      *         - the email address.
+     * @return - with the {@link SecurityUser}.
      */
     @Query("SELECT su FROM SecurityUser su WHERE su.emailAddress = :emailAddress")
     SecurityUser findByEmailAddress(@QueryParam("emailAddress") String emailAddress);
