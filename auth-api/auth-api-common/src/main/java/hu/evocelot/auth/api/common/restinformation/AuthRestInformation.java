@@ -35,7 +35,7 @@ public class AuthRestInformation {
     /**
      * {@value }
      */
-    public static final String LOGOUT_DESCRIPTION = "Endpoint for logging out. This endpoint invalidates the current access token but retains the refresh token.";
+    public static final String LOGOUT_DESCRIPTION = "Endpoint for logging out. This endpoint invalidates the current access and refresh token.";
 
     /**
      * {@value }

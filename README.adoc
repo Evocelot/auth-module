@@ -1,6 +1,9 @@
-= Module-base
+= auth-module
 
-Basic project for backend microservices based on Jakarta and Wildfly.
+Authentication and authorization module application based on Jakarta and Wildfly technology,
+which can be könnyen integrálható HTTP kommunikációra képes alkalmazásokkal.
+
+A modul célja általános authentikációs és authorizációs megoldást nyújtani.
 
 == Technologies Used
 
