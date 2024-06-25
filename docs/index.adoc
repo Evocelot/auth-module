@@ -21,6 +21,15 @@ is illustrated in the following diagram:
 
 image::images/auth-service-arch.drawio.png[auth-service]
 
+The Redis is used as a cache. It stores the data of logged-in users,
+such as active sessions and basic account information,
+thereby speeding up the authorization check.
+
+The file-service is an optional dependency that needs to
+be deployed for certain functions.
+This module handles the storage of profile pictures for user accounts,
+and if this function is not needed, the module does not need to be started.
+
 == Configuration
 
 To configure the application, you can use a .properties file or environment variables.
