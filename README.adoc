@@ -1,9 +1,11 @@
 = auth-module
 
-Authentication and authorization module application based on Jakarta and Wildfly technology,
-which can be könnyen integrálható HTTP kommunikációra képes alkalmazásokkal.
+Authentication and authorization module application based
+on Jakarta and Wildfly technology, which can be easily
+integrated with applications capable of HTTP communication.
 
-A modul célja általános authentikációs és authorizációs megoldást nyújtani.
+The goal of the module is to provide a general
+authentication and authorization solution.
 
 == Technologies Used
 
