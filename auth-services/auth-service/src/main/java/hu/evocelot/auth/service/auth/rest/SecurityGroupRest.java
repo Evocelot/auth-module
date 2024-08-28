@@ -88,7 +88,7 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
 
     @Override
     @Secured
-    @PermissionNeeded(permission = Permission.ADD_PERMISSION_TO_SECURITY_GROUP)
+    @PermissionNeeded(permission = Permission.ADD_PERM_TO_SECURITY_GROUP)
     public BaseResponse addPermissionToSecurityGroup(String securityGroupId, EntityIdRequest entityIdRequest) throws BaseException {
         return wrapPathParam2(addPermissionToSecurityGroupAction::addPermissionToSecurityGroup,
                 securityGroupId,
@@ -100,7 +100,7 @@ public class SecurityGroupRest extends BaseRestService implements ISecurityGroup
 
     @Override
     @Secured
-    @PermissionNeeded(permission = Permission.REMOVE_PERMISSION_FROM_SECURITY_GROUP)
+    @PermissionNeeded(permission = Permission.REMOVE_PERM_FROM_SEC_GROUP)
     public BaseResponse removePermissionFromSecurityGroup(String securityGroupId, EntityIdRequest entityIdRequest) throws BaseException {
         return wrapPathParam2(deletePermissionFromSecurityGroupAction::removePermissionFromSecurityGroup,
                 securityGroupId,

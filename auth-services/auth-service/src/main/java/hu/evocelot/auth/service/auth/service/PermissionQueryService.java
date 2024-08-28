@@ -5,11 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import hu.evocelot.auth.common.system.jpa.service.BaseService;
+import hu.evocelot.auth.model.*;
+import hu.icellmobilsoft.coffee.dto.common.common.OrderByTypeType;
+import hu.icellmobilsoft.coffee.dto.common.common.QueryRequestDetails;
+import hu.icellmobilsoft.coffee.dto.common.common.QueryResponseDetails;
+import hu.icellmobilsoft.coffee.dto.exception.TechnicalException;
+import hu.icellmobilsoft.coffee.dto.exception.enums.CoffeeFaultType;
+import hu.icellmobilsoft.coffee.jpa.sql.paging.PagingResult;
+import hu.icellmobilsoft.coffee.jpa.sql.paging.PagingUtil;
+import hu.icellmobilsoft.coffee.jpa.sql.paging.QueryMetaData;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.Order;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -17,10 +25,6 @@ import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.Permissio
 import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionQueryOrderParamType;
 import hu.evocelot.auth.common.system.jpa.service.AbstractQueryService;
 import hu.evocelot.auth.dto.exception.enums.FaultType;
-import hu.evocelot.auth.model.PermissionToSecurityGroup;
-import hu.evocelot.auth.model.PermissionToSecurityGroup_;
-import hu.evocelot.auth.model.Permission_;
-import hu.evocelot.auth.model.SecurityGroup_;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
 import hu.icellmobilsoft.coffee.se.api.exception.BusinessException;
 
@@ -31,21 +35,63 @@ import hu.icellmobilsoft.coffee.se.api.exception.BusinessException;
  * @since 0.10.0
  */
 @ApplicationScoped
-public class PermissionQueryService
-        extends AbstractQueryService<PermissionToSecurityGroup, PermissionQueryFilterParamsType, PermissionQueryOrderParamType> {
+public class PermissionQueryService extends BaseService<Permission> {
 
-    @Override
+    public PagingResult<Permission> findByQueryParams(PermissionQueryFilterParamsType filterParams, List<PermissionQueryOrderParamType> orderParams, QueryRequestDetails pagingParams)
+            throws BaseException {
+        if (Objects.isNull(pagingParams)) {
+            throw new BusinessException(CoffeeFaultType.WRONG_OR_MISSING_PARAMETERS, "The pagingParams is null!");
+        }
+
+        try {
+            TypedQuery<Permission> query = buildQuery(filterParams, orderParams, getEntityClass());
+            TypedQuery<Long> countQuery = buildCountQuery(filterParams);
+            return PagingUtil.getPagingResult(query, countQuery, pagingParams.getPage(), pagingParams.getRows());
+        } catch (BaseException e) {
+            throw new TechnicalException(FaultType.QUERY_FAILED, MessageFormat.format("Query failed. Message: [{0}].", e.getMessage()), e);
+        }
+    }
+
+    public TypedQuery<Permission> buildQuery(PermissionQueryFilterParamsType filterParams, List<PermissionQueryOrderParamType> orderParams, Class<PermissionToSecurityGroup> clazz) throws BaseException {
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Permission> criteriaQuery = criteriaBuilder.createQuery(Permission.class);
+        Root<PermissionToSecurityGroup> root = criteriaQuery.from(PermissionToSecurityGroup.class);
+        Join<PermissionToSecurityGroup, Permission> permissionJoin = root.join(PermissionToSecurityGroup_.PERMISSION);
+
+        List<Predicate> predicates = getFilterPredicates(criteriaBuilder, root, filterParams);
+        criteriaQuery.where(predicates.toArray(new Predicate[0]));
+        criteriaQuery.select(permissionJoin).distinct(true);
+
+        List<Order> orders = getOrders(criteriaBuilder, root, orderParams);
+        criteriaQuery.orderBy(orders);
+
+        return getEntityManager().createQuery(criteriaQuery);
+    }
+
+    protected TypedQuery<Long> buildCountQuery(PermissionQueryFilterParamsType filterParams) throws BaseException {
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+        Root<PermissionToSecurityGroup> root = countQuery.from(PermissionToSecurityGroup.class);
+        Join<PermissionToSecurityGroup, Permission> permissionJoin = root.join(PermissionToSecurityGroup_.PERMISSION);
+
+        List<Predicate> predicates = getFilterPredicates(criteriaBuilder, root, filterParams);
+        countQuery.where(predicates.toArray(new Predicate[0]));
+        countQuery.select(criteriaBuilder.countDistinct(permissionJoin));
+
+        return getEntityManager().createQuery(countQuery);
+    }
+
+
+
     protected Class<PermissionToSecurityGroup> getEntityClass() {
         return PermissionToSecurityGroup.class;
     }
 
-    @Override
     protected void customFetching(Root<PermissionToSecurityGroup> root) {
         root.fetch(PermissionToSecurityGroup_.permission);
         root.fetch(PermissionToSecurityGroup_.securityGroup);
     }
 
-    @Override
     protected List<Predicate> getFilterPredicates(CriteriaBuilder criteriaBuilder, Root<PermissionToSecurityGroup> root,
             PermissionQueryFilterParamsType permissionQueryFilterParamsType) throws BaseException {
 
@@ -75,7 +121,6 @@ public class PermissionQueryService
         return predicates;
     }
 
-    @Override
     protected List<Order> getOrders(CriteriaBuilder criteriaBuilder, Root<PermissionToSecurityGroup> root,
             List<PermissionQueryOrderParamType> permissionQueryOrderParamTypes) throws BaseException {
 
@@ -101,5 +146,39 @@ public class PermissionQueryService
         }
 
         return orders;
+    }
+
+    /**
+     * Creates the order based on the orderType.
+     *
+     * @param criteriaBuilder
+     *         - the criteria builder to use for creating order.
+     * @param orderType
+     *         - the type of the order (DESC, ASC).
+     * @param attributePath
+     *         - the path of the attribute to order.
+     * @return - with the created {@link Order}.
+     */
+    protected Order createOrder(CriteriaBuilder criteriaBuilder, OrderByTypeType orderType, Path<?> attributePath) {
+        return switch (orderType) {
+            case ASC -> criteriaBuilder.asc(attributePath);
+            case DESC -> criteriaBuilder.desc(attributePath);
+        };
+    }
+
+    /**
+     * Creates the {@link QueryRequestDetails} based on the {@link QueryMetaData}.
+     *
+     * @param metaData
+     *         - the metadata of the query.
+     * @return - with the created {@link QueryRequestDetails} that contains the paging details.
+     */
+    public QueryResponseDetails getPagingDetails(QueryMetaData metaData) {
+        QueryResponseDetails details = new QueryResponseDetails();
+        details.setPage(metaData.getPage().intValue());
+        details.setMaxPage(metaData.getMaxPage().intValue());
+        details.setRows(metaData.getRows().intValue());
+        details.setTotalRows(metaData.getTotalRows().intValue());
+        return details;
     }
 }

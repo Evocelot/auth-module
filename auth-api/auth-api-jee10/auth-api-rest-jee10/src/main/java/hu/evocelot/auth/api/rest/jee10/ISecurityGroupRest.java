@@ -1,20 +1,5 @@
 package hu.evocelot.auth.api.rest.jee10;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-
-import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
-import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
-import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-
 import hu.evocelot.auth.api.common._1_0.common.EntityIdRequest;
 import hu.evocelot.auth.api.common.path.AuthPath;
 import hu.evocelot.auth.api.common.restinformation.SecurityGroupRestInformation;
@@ -28,6 +13,12 @@ import hu.icellmobilsoft.coffee.cdi.annotation.xml.ValidateXML;
 import hu.icellmobilsoft.coffee.dto.common.commonservice.BaseResponse;
 import hu.icellmobilsoft.coffee.dto.url.BaseServicePath;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 /**
  * REST endpoint for security group management
@@ -161,7 +152,7 @@ public interface ISecurityGroupRest {
             throws BaseException;
 
     /**
-     * HTTP DELETE method for deleting the permission from the security group.
+     * HTTP POST method for deleting the permission from the security group.
      *
      * @param securityGroupId
      *         - the id of the security group from where remove the permission.
@@ -171,7 +162,7 @@ public interface ISecurityGroupRest {
      * @throws BaseException
      *         - when an error occurs.
      */
-    @DELETE
+    @POST
     @Operation(summary = SecurityGroupRestInformation.DELETE_PERMISSION_FROM_SECURITY_GROUP_SUMMARY,
             description = SecurityGroupRestInformation.DELETE_PERMISSION_FROM_SECURITY_GROUP_DESCRIPTION)
     @SecurityRequirement(name = SecuritySchemeConstant.HEADER_ACCESS_TOKEN)

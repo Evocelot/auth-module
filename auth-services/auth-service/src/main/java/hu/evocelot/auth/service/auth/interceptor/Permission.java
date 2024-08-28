@@ -91,7 +91,7 @@ public enum Permission {
     /**
      * Permission for adding a permission to a security group.
      */
-    ADD_PERMISSION_TO_SECURITY_GROUP,
+    ADD_PERM_TO_SECURITY_GROUP,
 
     /**
      * Permission for uploading profile picture.
@@ -106,7 +106,7 @@ public enum Permission {
     /**
      * Permission for removing permission from the security group.
      */
-    REMOVE_PERMISSION_FROM_SECURITY_GROUP,
+    REMOVE_PERM_FROM_SEC_GROUP,
 
     /**
      * Permission for changing the current user password.

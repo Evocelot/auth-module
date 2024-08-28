@@ -161,14 +161,14 @@ public abstract class AbstractQueryService<ENTITY extends AbstractIdentifiedAudi
 
     }
 
-    private TypedQuery<ENTITY> buildQuery(FILTER_PARAMS filterParams, List<ORDER_PARAM> orderParams, Class<ENTITY> clazz) throws BaseException {
+    protected TypedQuery<ENTITY> buildQuery(FILTER_PARAMS filterParams, List<ORDER_PARAM> orderParams, Class<ENTITY> clazz) throws BaseException {
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(clazz);
         Root<ENTITY> root = criteriaQuery.from(getEntityClass());
 
         customFetching(root);
 
-        criteriaQuery.select(root);
+        criteriaQuery.select(root).distinct(true);
 
         List<Order> orders = getOrders(criteriaBuilder, root, orderParams);
         processDefaultOrder(criteriaBuilder, root, orders);
@@ -185,7 +185,7 @@ public abstract class AbstractQueryService<ENTITY extends AbstractIdentifiedAudi
 
     private TypedQuery<Long> buildCountQuery(FILTER_PARAMS filterParams) throws BaseException {
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class).distinct(true);
         Root<ENTITY> root = criteriaQuery.from(getEntityClass());
 
         criteriaQuery.select(criteriaBuilder.count(root));

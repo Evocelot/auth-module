@@ -1,26 +1,20 @@
 package hu.evocelot.auth.service.auth.action.permission;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-
-import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionEntityQueryRowType;
-import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionQueryFilterParamsType;
-import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionQueryOrderParamType;
-import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionQueryRequest;
-import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.PermissionQueryResponse;
+import hu.evocelot.auth.api.permissionquery._1_0.rest.permission_query.*;
 import hu.evocelot.auth.common.system.rest.action.BaseAction;
 import hu.evocelot.auth.model.Permission;
 import hu.evocelot.auth.model.PermissionToSecurityGroup;
-import hu.evocelot.auth.service.auth.converter.permission.PermissionEntityQueryRowTypeConverter;
 import hu.evocelot.auth.service.auth.service.PermissionQueryService;
 import hu.icellmobilsoft.coffee.dto.common.common.QueryRequestDetails;
 import hu.icellmobilsoft.coffee.dto.exception.InvalidParameterException;
 import hu.icellmobilsoft.coffee.jpa.sql.paging.PagingResult;
 import hu.icellmobilsoft.coffee.se.api.exception.BaseException;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Action class for listing {@link Permission}. In the background, this class works with {@link PermissionToSecurityGroup}.
@@ -34,17 +28,12 @@ public class QueryPermissionAction extends BaseAction {
     @Inject
     private PermissionQueryService permissionQueryService;
 
-    @Inject
-    private PermissionEntityQueryRowTypeConverter permissionEntityQueryRowTypeConverter;
-
     /**
      * For listing {@link Permission} with filtering, sorting and paging.
      *
-     * @param permissionQueryRequest
-     *         - the request that contains information about the query.
+     * @param permissionQueryRequest - the request that contains information about the query.
      * @return - with {@link PermissionQueryResponse} that contains the relevant permissions.
-     * @throws BaseException
-     *         - when an error occurs.
+     * @throws BaseException - when an error occurs.
      */
     public PermissionQueryResponse queryPermission(PermissionQueryRequest permissionQueryRequest) throws BaseException {
         if (Objects.isNull(permissionQueryRequest)) {
@@ -55,7 +44,7 @@ public class QueryPermissionAction extends BaseAction {
         List<PermissionQueryOrderParamType> orderParams = permissionQueryRequest.getOrderParams();
         QueryRequestDetails pagingParams = permissionQueryRequest.getPagingDetails();
 
-        PagingResult<PermissionToSecurityGroup> pagingResult = permissionQueryService.findByQueryParams(filterParams, orderParams, pagingParams);
+        PagingResult<Permission> pagingResult = permissionQueryService.findByQueryParams(filterParams, orderParams, pagingParams);
 
         PermissionQueryResponse response = new PermissionQueryResponse();
         response.setPagingDetails(permissionQueryService.getPagingDetails(pagingResult.getDetails()));
@@ -65,15 +54,16 @@ public class QueryPermissionAction extends BaseAction {
         return response;
     }
 
-    private List<PermissionEntityQueryRowType> convertResults(List<PermissionToSecurityGroup> results) throws BaseException {
+    private List<PermissionEntityQueryRowType> convertResults(List<Permission> results) throws BaseException {
         List<PermissionEntityQueryRowType> rows = new ArrayList<>();
 
-        for (PermissionToSecurityGroup result : results) {
-            PermissionEntityQueryRowType row = permissionEntityQueryRowTypeConverter.convert(result);
+        for (Permission result : results) {
+            PermissionEntityQueryRowType row = new PermissionEntityQueryRowType();
 
-            row.setName(result.getPermission().getName());
-            row.setDescription(result.getPermission().getDescription());
-            row.setSecurityGroupName(result.getSecurityGroup().getName());
+            row.setPermissionId(result.getId());
+            row.setName(result.getName());
+            row.setDescription(result.getDescription());
+            row.setSecurityGroupName(result.getName());
 
             rows.add(row);
         }
